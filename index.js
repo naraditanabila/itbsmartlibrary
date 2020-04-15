@@ -1,10 +1,30 @@
-const express = require('express')
-const path = require('path')
-const PORT = process.env.PORT || 5000
+const Express = require('express')
+const bodyParser = require('body-parser')
+const Pool = require('pg').Pool
+require('dotenv').config()
 
-express()
-  .use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+const app = Express()
+const port = 3000
+
+const db = new Pool({
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    port: process.env.DB_PORT,
+    ssl: false
+})
+
+var anggotaRouter = require('./api/anggota')
+var bukuRouter = require('./api/buku')
+var loginRouter = require('./api/login')
+var peminjamanRouter = require('./api/peminjaman')
+
+db.connect()
+app.use(bodyParser())
+
+app.use(anggotaRouter)
+app.use(bukuRouter)
+app.use(loginRouter)
+app.use(peminjamanRouter)
+app.listen(port, ()=>console.log('web service berhasil dijalankan'))
