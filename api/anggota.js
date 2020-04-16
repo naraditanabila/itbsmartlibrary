@@ -13,6 +13,20 @@ const dbPromise = new Pool({
     ssl: false
 })
 
-//add anggota baru
+//add anggota baru (POST)
+app.post('/register',async(req,res) => {
+    try {
+        const id_umum = req.params.id_umum
+        const {nama, alamat, no_hp, email, pekerjaan} = req.body
+        await dbPromise.query(`insert into umum(id_umum, nama, alamat, no_hp, email, pekerjaan)
+            values('${id_umum}','${nama}','${alamat}','${no_hp}','${email}','${pekerjaan}')`)
+        console.log(req.body)
+        res.json('Data anggota baru berhasil ditambahkan')
+    } catch (error) {
+        console.log(error)
+        res.json('error')
+    }
+})
+
 //cek validasi anggota berdasarkan id anggota
 //menampilkan data anggota
