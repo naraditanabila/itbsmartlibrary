@@ -14,7 +14,7 @@ const dbPromise = new Pool({
 })
 
 //add anggota baru (POST)
-app.post('/register',async(req,res) => {
+/*app.post('/register',async(req,res,next) => {
     try {
         const id_umum = req.params.id_umum
         const {nama, alamat, no_hp, email, pekerjaan} = req.body
@@ -26,7 +26,7 @@ app.post('/register',async(req,res) => {
         console.log(error)
         res.json('error')
     }
-})
+})*/
 
 //cek validasi anggota berdasarkan id anggota
 //menampilkan data anggota

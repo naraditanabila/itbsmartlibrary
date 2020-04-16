@@ -1,30 +1,28 @@
-const Express = require('express')
+/*const Express = require('express')
 const bodyParser = require('body-parser')
-const Pool = require('pg').Pool
+const cors = require('cors')
 require('dotenv').config()
 
 const app = Express()
 const port = 3000
-
-const db = new Pool({
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    port: process.env.DB_PORT,
-    ssl: false
-})
 
 var anggotaRouter = require('./api/anggota')
 var bukuRouter = require('./api/buku')
 var loginRouter = require('./api/login')
 var peminjamanRouter = require('./api/peminjaman')
 
-db.connect()
 app.use(bodyParser())
+app.use(cors())
 
 app.use(anggotaRouter)
 app.use(bukuRouter)
 app.use(loginRouter)
 app.use(peminjamanRouter)
-app.listen(port, ()=>console.log('web service berhasil dijalankan'))
+app.listen(port, ()=>console.log('web service berhasil dijalankan'))*/
+
+var http = require('http');
+
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Hello World!');
+}).listen(8080);
