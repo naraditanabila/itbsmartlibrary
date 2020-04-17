@@ -1,33 +1,31 @@
 {
   "name": "itbsmartlibrary",
   "version": "1.0.0",
-  "description": "website itb's library for smart campus",
+  "description": "web service for itb smart library",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/naraditanabila/itbsmartlibrary.git"
   },
-  "keywords": [
-    "library",
-    "smart campus",
-    "itb"
-  ],
   "author": "Naradita",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/naraditanabila/itbsmartlibrary/issues"
   },
   "homepage": "https://github.com/naraditanabila/itbsmartlibrary#readme",
+  "keywords": [
+    "itb",
+    "smart",
+    "campus",
+    "library"
+  ],
   "dependencies": {
-    "Express": "^3.0.1",
-    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "http": "0.0.1-security",
     "pg": "^8.0.2"
   }
 }

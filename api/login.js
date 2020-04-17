@@ -14,3 +14,7 @@ const dbPromise = new Pool({
 })
 
 //login admin
+
+
+
+module.exports = app;
