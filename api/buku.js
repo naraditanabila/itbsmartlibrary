@@ -17,25 +17,35 @@ dbPromise.connect()
 //add data buku baru (POST)
 app.post('/buku/add',async(req,res) => {
     try {
-        const {judul, author, lokasi, jml_total} = req.body
+        const {id_buku, judul, author, lokasi, jml_total} = req.body
         const jml_avail = jml_total;
         const jml_pinjam= 0;
-        await dbPromise.query(`insert into buku(judul, author, lokasi, jml_total, jml_pinjam, jml_avail)
-            values('${judul}','${author}','${lokasi}','${jml_total}','${jml_pinjam}','${jml_avail}')`)
+        await dbPromise.query(`insert into buku(id_buku, judul, author, lokasi, jml_total, jml_pinjam, jml_avail)
+            values('${id_buku}','${judul}','${author}','${lokasi}','${jml_total}','${jml_pinjam}','${jml_avail}')`)
         console.log(req.body)
-        const resData = await dbPromise.query(`select * from buku where judul='${judul}'`)
-        res.json(resData.rows)
+        res.json(req.body)
     } catch (error) {
         console.log(error)
         res.json('error')
     }
 })
 
-//Update stok buku baru (PUT)
+//Menambah stok buku lama (PUT)
+/*app.put('/buku/add/:id_buku',async(req,res) => {
+    const id_buku = req.params.id_buku
+    const jml_buku = req.body
+    var jml_total = await dbPromise.query(`select jml_total from buku where id_buku='${id_buku}'`)
+    var jml_avail = await dbPromise.query(`select jml_avail from buku where id_buku='${id_buku}'`)
+    jml_total = jml_total+jml_buku
+    jml_avail = jml_avail+jml_buku
 
+    await dbPromise.query(`UPDATE buku SET jml_total='${jml_total}', jml_avail='${jml_avail}'
+        WHERE id_buku = '${id_buku}'`)
+    res.json('Stok buku berhasil ditambahkan.')
+})*/
 
 //Cari buku berdasarkan judul (GET)
-app.get('/buku/search/:judul', async(req,res) => {
+app.get('/buku/search/title/:judul', async(req,res) => {
     let ret;
     const judul = req.params.judul
     dbPromise.query('SELECT * FROM buku WHERE judul=$1',[judul], (err,result) => {
@@ -49,7 +59,50 @@ app.get('/buku/search/:judul', async(req,res) => {
         else {
             ret={
                 status:err.code,
-                result: 'data buku tidak ditemukan'
+                result: 'Data buku tidak ditemukan'
+            };
+            res.json(ret)
+        }
+    })
+})
+
+//Cari buku berdasarkan author (GET)
+app.get('/buku/search/author/:author', async(req,res) => {
+    let ret;
+    const author = req.params.author
+    dbPromise.query('SELECT * FROM buku WHERE author=$1',[author], (err,result) => {
+        if (!err){
+            ret={
+                status:200,
+                result: result.rows
+            };
+            res.status(200).json(ret)
+        }
+        else {
+            ret={
+                status:err.code,
+                result: 'Data buku tidak ditemukan'
+            };
+            res.json(ret)
+        }
+    })
+})
+
+//Menampilkan semua data buku yang tersedia di perpustakaan
+app.get('/buku/list',async(req, res) =>{
+    let ret;
+    dbPromise.query('SELECT id_buku, judul, author, lokasi, jml_avail FROM buku WHERE jml_avail<>0', (err, result) => {
+        if (!err){
+            ret={
+                status:200,
+                result: result.rows
+            };
+            res.status(200).json(ret)
+        }
+        else {
+            ret={
+                status:err.code,
+                result: err.message
             };
             res.json(ret)
         }
