@@ -28,10 +28,48 @@ app.post('/register',async(req,res) => {
     }
 })
 
-//cek validasi anggota berdasarkan id anggota
+//cek validasi anggota berdasarkan id umum (GET)
+app.get('/umum/:id_umum', async(req,res) => {
+    let ret;
+    const id_umum = req.params.id_umum
+    dbPromise.query('SELECT anggota.id_anggota, umum.id_umum, umum.nama, umum.alamat, umum.no_hp, umum.email, umum.pekerjaan FROM umum, anggota WHERE id_umum=$1 and umum.id_umum=anggota.id_umum',[id_umum], (err,result) => {
+        if (!err){
+            ret={
+                status:200,
+                result: result.rows
+            };
+            res.status(200).json(ret)
+        }
+        else {
+            ret={
+                status:err.code,
+                result: 'nomor identitas tidak terdaftar'
+            };
+            res.json(ret)
+        }
+    })
+})
 
-
-//menampilkan data anggota
-
+//cek validasi anggota berdasarkan nim (GET)
+app.get('/mahasiswa/:nim', async(req,res) => {
+    let ret;
+    const nim = req.params.nim
+    dbPromise.query('SELECT  anggota.id_anggota, mahasiswa.nim, mahasiswa.nama, mahasiswa.fakultas, mahasiswa.prodi, mahasiswa.angkatan FROM anggota,mahasiswa where nim=$1 and mahasiswa.nim=anggota.nim',[nim], (err,result) => {
+        if (!err){
+            ret={
+                status:200,
+                result: result.rows
+            };
+            res.status(200).json(ret)
+        }
+        else {
+            ret={
+                status:err.code,
+                result: 'nim tidak valid'
+            };
+            res.json(ret)
+        }
+    })
+})
 
 module.exports = app;

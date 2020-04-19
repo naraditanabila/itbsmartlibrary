@@ -18,6 +18,7 @@ const dbPromise = new Pool({
 
 //Update stok buku
 //Delete stok buku
+//Cari buku berdasarkan nama
 
 
 module.exports = app;

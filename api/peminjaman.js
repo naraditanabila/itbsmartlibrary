@@ -15,7 +15,7 @@ const dbPromise = new Pool({
 
 //add peminjaman
 
-//update peminjaman
+//update peminjaman ketika mengembalikan
 //menampilkan data peminjaman berdasarkan id anggota
 //menampilkan data peminjaman berdasarkan id buku
 
