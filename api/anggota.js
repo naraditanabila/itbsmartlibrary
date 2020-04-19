@@ -22,7 +22,8 @@ app.post('/register',async(req,res) => {
         await dbPromise.query(`insert into umum(nama, alamat, no_hp, email, pekerjaan)
             values('${nama}','${alamat}','${no_hp}','${email}','${pekerjaan}')`)
         console.log(req.body)
-        res.json('Data anggota baru berhasil ditambahkan')
+        const resData = await dbPromise.query(`select * from umum where nama='${nama}'`)
+        res.json(resData.rows)
     } catch (error) {
         console.log(error)
         res.json('error')
