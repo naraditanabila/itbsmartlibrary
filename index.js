@@ -17,7 +17,6 @@ require('dotenv').config()
 
 const anggotaRouter = require('./api/anggota')
 const bukuRouter = require('./api/buku')
-const loginRouter = require('./api/login')
 const peminjamanRouter = require('./api/peminjaman')
 
 //db.connect()
@@ -26,6 +25,5 @@ app.use(cors())
 
 app.use(anggotaRouter)
 app.use(bukuRouter)
-app.use(loginRouter)
 app.use(peminjamanRouter)
 app.listen(port, ()=>console.log('web service berhasil dijalankan'))

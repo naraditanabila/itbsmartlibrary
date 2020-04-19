@@ -17,27 +17,28 @@ dbPromise.connect()
 //add data buku baru (POST)
 app.post('/buku/add',async(req,res) => {
     try {
-        //const id_buku = req.params.id_buku
-        const {judul, author, lokasi, jml_total, jml_pinjam} = req.body
-        const jml_avail = jml_total - jml_pinjam;
-        await dbPromise.query(`insert into umum(judul, author, lokasi, jml_total, jml_pinjam, jml_avail)
+        const {judul, author, lokasi, jml_total} = req.body
+        const jml_avail = jml_total;
+        const jml_pinjam= 0;
+        await dbPromise.query(`insert into buku(judul, author, lokasi, jml_total, jml_pinjam, jml_avail)
             values('${judul}','${author}','${lokasi}','${jml_total}','${jml_pinjam}','${jml_avail}')`)
         console.log(req.body)
-        res.json('Data buku baru berhasil ditambahkan')
+        const resData = await dbPromise.query(`select * from buku where judul='${judul}'`)
+        res.json(resData.rows)
     } catch (error) {
         console.log(error)
         res.json('error')
     }
 })
 
-//Update stok buku (PUT)
+//Update stok buku baru (PUT)
 
 
 //Cari buku berdasarkan judul (GET)
 app.get('/buku/search/:judul', async(req,res) => {
     let ret;
     const judul = req.params.judul
-    dbPromise.query('SELECT id_buku, judul, author, lokasi, jml_avail FROM buku WHERE judul=$1',[judul], (err,result) => {
+    dbPromise.query('SELECT * FROM buku WHERE judul=$1',[judul], (err,result) => {
         if (!err){
             ret={
                 status:200,
