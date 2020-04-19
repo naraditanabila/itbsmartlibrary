@@ -91,7 +91,7 @@ app.get('/buku/search/author/:author', async(req,res) => {
 //Menampilkan semua data buku yang tersedia di perpustakaan
 app.get('/buku/list',async(req, res) =>{
     let ret;
-    dbPromise.query('SELECT id_buku, judul, author, lokasi, jml_avail FROM buku WHERE jml_avail<>0', (err, result) => {
+    dbPromise.query('SELECT id_buku, judul, author, lokasi, jml_avail FROM buku WHERE jml_avail<>0 ORDER BY id_buku', (err, result) => {
         if (!err){
             ret={
                 status:200,
