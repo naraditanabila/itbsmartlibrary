@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const port = 3001
 const app = Express()
-const Pool = require('pg').Pool
+//const Pool = require('pg').Pool
 require('dotenv').config()
 
 /*const db = new Pool({
@@ -21,8 +21,6 @@ const loginRouter = require('./api/login')
 const peminjamanRouter = require('./api/peminjaman')
 
 //db.connect()
-app.use(bodyParser())
-app.use(cors())
 app.use(bodyParser())
 app.use(cors())
 

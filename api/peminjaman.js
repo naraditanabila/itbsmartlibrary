@@ -10,9 +10,10 @@ const dbPromise = new Pool({
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     port: process.env.DB_PORT,
-    ssl: false
+    ssl: true
 })
 
+dbPromise.connect()
 //add peminjaman (POST)
 
 

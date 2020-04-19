@@ -10,16 +10,17 @@ const dbPromise = new Pool({
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     port: process.env.DB_PORT,
-    ssl: false
+    ssl: true
 })
 
+dbPromise.connect()
 //add anggota baru (POST)
 app.post('/register',async(req,res) => {
     try {
-        const id_umum = req.params.id_umum
+        //const id_umum = req.params.id_umum
         const {nama, alamat, no_hp, email, pekerjaan} = req.body
-        await dbPromise.query(`insert into umum(id_umum, nama, alamat, no_hp, email, pekerjaan)
-            values('${id_umum}','${nama}','${alamat}','${no_hp}','${email}','${pekerjaan}')`)
+        await dbPromise.query(`insert into umum(nama, alamat, no_hp, email, pekerjaan)
+            values('${nama}','${alamat}','${no_hp}','${email}','${pekerjaan}')`)
         console.log(req.body)
         res.json('Data anggota baru berhasil ditambahkan')
     } catch (error) {
@@ -32,7 +33,7 @@ app.post('/register',async(req,res) => {
 app.get('/umum/:id_umum', async(req,res) => {
     let ret;
     const id_umum = req.params.id_umum
-    dbPromise.query('SELECT anggota.id_anggota, umum.id_umum, umum.nama, umum.alamat, umum.no_hp, umum.email, umum.pekerjaan FROM umum, anggota WHERE id_umum=$1 and umum.id_umum=anggota.id_umum',[id_umum], (err,result) => {
+    dbPromise.query('SELECT * FROM umum WHERE id_umum=$1',[id_umum], (err, result) => {
         if (!err){
             ret={
                 status:200,
@@ -47,14 +48,14 @@ app.get('/umum/:id_umum', async(req,res) => {
             };
             res.json(ret)
         }
-    })
+    }) 
 })
 
 //cek validasi anggota berdasarkan nim (GET)
 app.get('/mahasiswa/:nim', async(req,res) => {
     let ret;
     const nim = req.params.nim
-    dbPromise.query('SELECT  anggota.id_anggota, mahasiswa.nim, mahasiswa.nama, mahasiswa.fakultas, mahasiswa.prodi, mahasiswa.angkatan FROM anggota,mahasiswa where nim=$1 and mahasiswa.nim=anggota.nim',[nim], (err,result) => {
+    dbPromise.query('SELECT * FROM mahasiswa WHERE nim=$1',[nim], (err, result) => {
         if (!err){
             ret={
                 status:200,
@@ -65,11 +66,12 @@ app.get('/mahasiswa/:nim', async(req,res) => {
         else {
             ret={
                 status:err.code,
-                result: 'nim tidak valid'
+                result: 'NIM tidak valid'
             };
             res.json(ret)
         }
-    })
+    }) 
 })
+
 
 module.exports = app;
