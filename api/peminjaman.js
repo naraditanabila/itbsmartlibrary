@@ -13,11 +13,54 @@ const dbPromise = new Pool({
     ssl: false
 })
 
-//add peminjaman
+//add peminjaman (POST)
 
-//update peminjaman ketika mengembalikan
-//menampilkan data peminjaman berdasarkan id anggota
-//menampilkan data peminjaman berdasarkan id buku
 
+//update peminjaman ketika mengembalikan (PUT)
+
+
+//menampilkan data peminjaman berdasarkan id anggota (GET)
+/*app.get('/peminjaman/search/:id_anggota', async(req,res) => {
+    let ret;
+    const id_anggota = req.params.id_anggota
+    dbPromise.query('SELECT id_transaksi, id_anggota, id_buku, tgl_pinjam, tgl_kembali, status_pinjam, denda FROM peminjaman WHERE id_anggota=$1',[id_anggota], (err,result) => {
+        if (!err){
+            ret={
+                status:200,
+                result: result.rows
+            };
+            res.status(200).json(ret)
+        }
+        else {
+            ret={
+                status:err.code,
+                result: 'data buku tidak ditemukan'
+            };
+            res.json(ret)
+        }
+    })
+})*/
+
+//menampilkan data peminjaman berdasarkan id buku (GET)
+/*app.get('/peminjaman/search/:id_buku', async(req,res) => {
+    let ret;
+    const judul = req.params.judul
+    dbPromise.query('SELECT id_buku, judul, author, lokasi, jml_avail FROM buku WHERE judul=$1',[judul], (err,result) => {
+        if (!err){
+            ret={
+                status:200,
+                result: result.rows
+            };
+            res.status(200).json(ret)
+        }
+        else {
+            ret={
+                status:err.code,
+                result: 'data buku tidak ditemukan'
+            };
+            res.json(ret)
+        }
+    })
+})*/
 
 module.exports = app;
