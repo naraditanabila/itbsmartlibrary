@@ -32,10 +32,10 @@ app.post('/peminjaman/add',async(req,res) => {
 //update peminjaman ketika mengembalikan (PUT) -- updateTransaction
 app.put('/peminjaman/update',async(req,res)=>{
     const {id_anggota, id_buku} = req.body
-    await dbPromise.query(`update transaksi set status_pinjam = false, tgl_selesai = now()
+    await dbPromise.query(`update transaksi set status_pinjam = false, tgl_selesai = now(), denda= durasi_pinjam(tgl_kembali, current_date)*1000
     where id_anggota = '${id_anggota}' and id_buku = '${id_buku}' and status_pinjam= true`)
     console.log(req.body)
-    const resData = await dbPromise.query(`select * from transaksi order by tgl_selesai desc limit 1`)
+    const resData = await dbPromise.query(`select * from transaksi where tgl_selesai = current_date order by tgl_selesai desc limit 1`)
     res.json(resData.rows)
 })
 

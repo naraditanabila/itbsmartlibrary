@@ -31,18 +31,15 @@ app.post('/buku/add',async(req,res) => {
 })
 
 //Menambah stok buku lama (PUT)
-/*app.put('/buku/add/:id_buku',async(req,res) => {
+app.put('/buku/add/:id_buku',async(req,res) => {
     const id_buku = req.params.id_buku
-    const jml_buku = req.body
-    var jml_total = await dbPromise.query(`select jml_total from buku where id_buku='${id_buku}'`)
-    var jml_avail = await dbPromise.query(`select jml_avail from buku where id_buku='${id_buku}'`)
-    jml_total = jml_total+jml_buku
-    jml_avail = jml_avail+jml_buku
+    const {jml_buku} = req.body
 
-    await dbPromise.query(`UPDATE buku SET jml_total='${jml_total}', jml_avail='${jml_avail}'
-        WHERE id_buku = '${id_buku}'`)
+    await dbPromise.query(`UPDATE buku SET jml_total=jml_total+${jml_buku}, jml_avail=jml_avail+${jml_buku}
+        WHERE id_buku = ${id_buku}`)
+    console.log(req.body)
     res.json('Stok buku berhasil ditambahkan.')
-})*/
+})
 
 //Cari buku berdasarkan judul (GET)
 app.get('/buku/search/title/:judul', async(req,res) => {
