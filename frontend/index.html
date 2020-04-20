@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>UPT Perpustakaan ITB</title>
+	<meta charset="UTF-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/logo_itb.png"/> 
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-primary" id="navbarITB">
+	  <a class="navbar-brand" href="home.html">
+        <img src="images/icons/logo_itb.png" width="50" height="50" alt="">
+        UPT Perpustakaan ITB
+	  </a>
+	  <button id="adminLogin" onclick="showModal();" class="btn btn-1" type="submit">Login as Admin</button>
+	</nav>	
+
+	<div class="container" align="center" style="margin-top:20px">
+		<div class="wrap-contact100">
+            <!--</form> -->
+            <label class="contact100-form-title" for="first-name" align="center">Katalog Buku</label>
+			<!--<div class="wrap-input100">-->
+				<form class="form-inline" action="#" style="align-self: center;" method="GET">
+                    <input id="kota" class="input100" type="text" text-align="center" name="kota" placeholder="Masukkan judul/author" > <br/>
+					<br/><button id="cariData" align="center" onclick="showModal();" class="btn btn-2" type="submit" style="margin:auto;display:block"> Cari</button>
+				</form>
+                
+            <!--</div>-->
+            </div>
+		</div>
+
+			<form class="contact100-form validate-form">
+
+				<table class="center" id="tabelBuku" style="margin-bottom:10px">
+                    <thead id="tabheadpayment">
+                    <tr>
+                        <th>ID Buku</th>
+                        <th>Judul</th>
+                        <th>Author</th>
+                        <th>Lokasi</th>
+                        <th>Jumlah Total</th>
+                        <th>Jumlah Dipinjam</th>
+                        <th>Jumlah Available</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tabbodyBuku"></tbody>
+                </table>          
+			</form>
+
+	<div id="detailModal" class="modal" role="dialog" style="display: none">
+      <!-- Modal content -->
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <h5 class="modal-title" align="center" id="exampleModalLabel">Login</h5>
+                </div>
+                <div class="modal-body">
+                    <!--<div id="dmods">-->
+                        <p>Username : <input id="username" class="input100" type="text" name="username" placeholder="Masukkan username" required> </p>
+                        <p>Password : <input id="password" class="input100" type="password" name="password" placeholder="Masukkan password" required> </p>
+                    <!--</div>-->
+                </div>
+                <div class="modal-footer">
+                        <button onclick="signIn" id=signin type="button" class="btn btn-primary" data-dismiss="modal">Sign In</button>
+						<button onclick="hideModal()" id=close type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+	
+	
+	<script>
+	function showModal() {
+	document.getElementById('detailModal').style.display='block';
+    }
+
+	function hideModal() {
+	document.getElementById('detailModal').style.display='none';
+    }
+
+	function signIn() {
+    }
+		 $(document).ready(function(){
+			 tabmodiv = document.getElementById('tabbodyBuku');
+			 document.getElementById('tabelBuku').style.display = 'block';
+			 $.ajax({
+				url: 'http://178.128.104.74/penjualanformulirpendaftaranpesertapmb/payment',
+				type:'GET',
+				dataType: 'json',
+				success: function(response) {
+					content="";
+					$.each(response, function(key, value){
+						
+						content+=
+							"<tr>" +
+							"<td>"+value.e_pin+"</th>\n" +
+							"<td>"+value.status_pembayaran+"</th>\n" +
+							"<td>"+"<img src="+value.bukti_pembayaran+" alt="+'""'+" border="+3+" height="+100+" width="+100+"></img>"+"</th>\n" +
+							"</tr>";
+					});
+					tabmodiv.innerHTML = content;
+				},
+				error: function(response) {
+					console.log(response);
+				}
+			});
+		});
+	</script>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics 
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+  -->
+</script>
+
+</body>
+</html>
