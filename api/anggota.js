@@ -15,7 +15,7 @@ const dbPromise = new Pool({
 
 dbPromise.connect()
 //add anggota baru (POST)
-app.post('/register',async(req,res) => {
+app.post('/anggota/register',async(req,res) => {
     try {
         //const id_umum = req.params.id_umum
         const {nama, alamat, no_hp, email, pekerjaan} = req.body
@@ -31,7 +31,7 @@ app.post('/register',async(req,res) => {
 })
 
 //cek validasi anggota berdasarkan id umum (GET)
-app.get('/umum/:id_umum', async(req,res) => {
+app.get('/anggota/umum/:id_umum', async(req,res) => {
     let ret;
     const id_umum = req.params.id_umum
     dbPromise.query('SELECT * FROM umum WHERE id_umum=$1',[id_umum], (err, result) => {
@@ -53,7 +53,7 @@ app.get('/umum/:id_umum', async(req,res) => {
 })
 
 //cek validasi anggota berdasarkan nim (GET)
-app.get('/mahasiswa/:nim', async(req,res) => {
+app.get('/anggota/mahasiswa/:nim', async(req,res) => {
     let ret;
     const nim = req.params.nim
     dbPromise.query('SELECT * FROM mahasiswa WHERE nim=$1',[nim], (err, result) => {
@@ -74,5 +74,46 @@ app.get('/mahasiswa/:nim', async(req,res) => {
     }) 
 })
 
+//display semua data mahasiswa
+app.get('/anggota/mahasiswa', async(req,res) => {
+    let ret;
+    dbPromise.query('SELECT * FROM mahasiswa', (err, result) => {
+        if (!err){
+            ret={
+                status:200,
+                result: result.rows
+            };
+            res.status(200).json(ret)
+        }
+        else {
+            ret={
+                status:err.code,
+                result: 'Data mahasiswa gagal ditampilkan'
+            };
+            res.json(ret)
+        }
+    }) 
+})
+
+//display semua data umum
+app.get('/anggota/umum', async(req,res) => {
+    let ret;
+    dbPromise.query('SELECT * FROM umum', (err, result) => {
+        if (!err){
+            ret={
+                status:200,
+                result: result.rows
+            };
+            res.status(200).json(ret)
+        }
+        else {
+            ret={
+                status:err.code,
+                result: 'Data anggota umum gagal ditampilkan'
+            };
+            res.json(ret)
+        }
+    })
+}) 
 
 module.exports = app;

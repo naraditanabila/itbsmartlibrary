@@ -15,15 +15,18 @@ require('dotenv').config()
   ssl: false
 })*/
 
-const anggotaRouter = require('./api/anggota')
-const bukuRouter = require('./api/buku')
-const peminjamanRouter = require('./api/peminjaman')
+//function connectDBPromise(){
+  const anggotaRouter = require('./api/anggota')
+  const bukuRouter = require('./api/buku')
+  const peminjamanRouter = require('./api/peminjaman')
 
-//db.connect()
-app.use(bodyParser())
-app.use(cors())
 
-app.use(anggotaRouter)
-app.use(bukuRouter)
-app.use(peminjamanRouter)
+  app.use(bodyParser())
+  app.use(cors())
+
+  app.use(anggotaRouter)
+  app.use(bukuRouter)
+  app.use(peminjamanRouter)
+//}
+  
 app.listen(port, ()=>console.log('web service berhasil dijalankan'))
