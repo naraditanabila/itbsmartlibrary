@@ -33,14 +33,21 @@
         <img src="images/icons/logo_itb.png" width="50" height="50" alt="">
         UPT Perpustakaan ITB
 	  </a>
+	  
 	  <button id="adminLogin" onclick="showModal();" class="btn btn-1" type="submit">Login as Admin</button>
 	</nav>	
-
-	<div class="container" align="center" style="margin-top:20px">
+	
+	<div class="col" align="center" style="margin-top:15px">
 		<div class="wrap-contact100">
             <!--</form> -->
             <label class="contact100-form-title" for="first-name" align="center">Katalog Buku</label>
 			<!--<div class="wrap-input100">-->
+				<label class="row">
+					<input type="radio" id="male" name="gender" value="male"> <label for="male">Cari berdasarkan judul buku</label><br/>
+				</label>
+				<label class="row">
+					<br/><input type="radio" id="male" name="gender" value="male"> <label for="male">Cari berdasarkan author buku</label>
+				</label>
 				<form class="form-inline" action="#" style="align-self: center;" method="GET">
                     <input id="kota" class="input100" type="text" text-align="center" name="kota" placeholder="Masukkan judul/author" > <br/>
 				<div class="wrapper">

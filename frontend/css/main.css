@@ -129,7 +129,7 @@ textarea:-ms-input-placeholder { color: #adadad;}
 
 label {
   display: block;
-  margin: 0;
+  margin-right: 10;
 }
 
 /*---------------------------------------------*/
@@ -150,7 +150,13 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ utility ]*/
 
-
+.row {
+  padding-left: 37%;
+  padding-right: 20%;
+  padding-bottom: 2.5%;
+  margin-top: -4px;
+  margin-top: -4px;
+}
 
 
 /*//////////////////////////////////////////////////////////////////
@@ -164,7 +170,7 @@ iframe {
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
+
   justify-content: center;
   align-items: center;
   padding: 15px;
@@ -175,7 +181,7 @@ iframe {
   width: 790px;
   background: #fff;
   border-radius: 2px;
-  padding: 55px 95px 68px 95px;
+  padding: 55px 20px 68px 20px;
 }
 
 
@@ -295,8 +301,6 @@ textarea.input100 {
   -o-transform: scale(1);
   transform: scale(1);
 }
-
-
 
 /*------------------------------------------------------------------
 [ Button ]*/
