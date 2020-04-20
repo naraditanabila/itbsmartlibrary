@@ -31,11 +31,12 @@ app.post('/peminjaman/add',async(req,res) => {
 
 //update peminjaman ketika mengembalikan (PUT) -- updateTransaction
 app.put('/peminjaman/update',async(req,res)=>{
-    const {hari, jam, psikolog, availability} = req.body
-    
-    await db.query(`update jadwal set hari = '${hari}', jam = '${jam}', psikolog = '${psikolog}', availability = ${availability}
-    where id = ${id}`)
-    res.json('data berhasil diubah')
+    const {id_anggota, id_buku} = req.body
+    await db.query(`update transaksi set status_pinjam = false, tgl_selesai = now()
+    where id_anggota = '${id_anggota}' and id_buku = '${id_buku}' and status_pinjam= true`)
+    console.log(req.body)
+    const resData = await dbPromise.query(`select * from transaksi order by tgl_selesai desc limit 1`)
+    res.json(resData.rows)
 })
 
 //menampilkan data peminjaman berdasarkan id anggota (GET) -- searchTransaction
