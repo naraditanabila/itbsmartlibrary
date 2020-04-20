@@ -22,7 +22,7 @@ app.post('/anggota/register',async(req,res) => {
         await dbPromise.query(`insert into umum(nama, alamat, no_hp, email, pekerjaan)
             values('${nama}','${alamat}','${no_hp}','${email}','${pekerjaan}')`)
         console.log(req.body)
-        const resData = await dbPromise.query(`select * from umum where nama='${nama}'`)
+        const resData = await dbPromise.query(`select * from umum order by id_anggota desc limit 1`)
         res.json(resData.rows)
     } catch (error) {
         console.log(error)
