@@ -18,8 +18,8 @@ dbPromise.connect()
 app.post('/peminjaman/add',async(req,res) => {
     try {
         const {id_anggota, id_buku} = req.body
-        await db.query(`insert into transaksi(id_anggota, id_buku, tgl_pinjam, tgl_kembali, status_pinjam)
-         values('${id_anggota}', '${id_buku}', now(), now() + interval '14 days', true`)
+        await dbPromise.query(`insert into transaksi(id_anggota, id_buku, tgl_mulai, tgl_kembali, status_pinjam)
+         values(${id_anggota},${id_buku}, now(), now()+interval '14 days',TRUE)`)
         console.log(req.body)
         const resData = await dbPromise.query(`select * from transaksi order by id_transaksi desc limit 1`)
         res.json(resData.rows)
@@ -32,7 +32,7 @@ app.post('/peminjaman/add',async(req,res) => {
 //update peminjaman ketika mengembalikan (PUT) -- updateTransaction
 app.put('/peminjaman/update',async(req,res)=>{
     const {id_anggota, id_buku} = req.body
-    await db.query(`update transaksi set status_pinjam = false, tgl_selesai = now()
+    await dbPromise.query(`update transaksi set status_pinjam = false, tgl_selesai = now()
     where id_anggota = '${id_anggota}' and id_buku = '${id_buku}' and status_pinjam= true`)
     console.log(req.body)
     const resData = await dbPromise.query(`select * from transaksi order by tgl_selesai desc limit 1`)
@@ -42,21 +42,66 @@ app.put('/peminjaman/update',async(req,res)=>{
 //menampilkan data peminjaman berdasarkan id anggota (GET) -- searchTransaction
 app.get('/peminjaman/search/anggota/:id_anggota',async(req, res)=>{
     const id_anggota = req.params.id_anggota
-    const resData = await db.query(`select * from transaksi where id_anggota='${id_anggota}' order by tgl_pinjam desc`)
-    res.json(resData.rows)
+    let ret;
+    dbPromise.query(`select * from transaksi where id_anggota=$1 order by tgl_mulai desc`, [id_anggota], (err, result) => {
+        if (!err){
+            ret={
+                status:200,
+                result: result.rows
+            };
+            res.status(200).json(ret)
+        }
+        else {
+            ret={
+                status:err.code,
+                result: 'Data peminjaman tidak ditemukan.'
+            };
+            res.json(ret)
+        }
+    })
 })
 
 //menampilkan data peminjaman berdasarkan id buku (GET) -- getTransactionList
 app.get('/peminjaman/search/buku/:id_buku',async(req, res)=>{
     const id_buku = req.params.id_buku
-    const resData = await db.query(`select * from transaksi where id_buku='${id_buku}' order by tgl_pinjam desc`)
-    res.json(resData.rows)
+    let ret;
+    dbPromise.query('select * from transaksi where id_buku=$1 order by tgl_mulai desc', [id_buku], (err, result) => {
+        if (!err){
+            ret={
+                status:200,
+                result: result.rows
+            };
+            res.status(200).json(ret)
+        }
+        else {
+            ret={
+                status:err.code,
+                result: 'Data peminjaman tidak ditemukan.'
+            };
+            res.json(ret)
+        }
+    })
 })
 
 //menampilkan seluruh data peminjaman (GET)
 app.get('/peminjaman/list/all',async(req, res)=>{
-    const resData = await db.query('select * from transaksi order by id_transaksi')
-    res.json(resData.rows)
+    let ret;
+    dbPromise.query('SELECT * FROM transaksi ORDER BY id_transaksi DESC', (err, result) => {
+        if (!err){
+            ret={
+                status:200,
+                result: result.rows
+            };
+            res.status(200).json(ret)
+        }
+        else {
+            ret={
+                status:err.code,
+                result: 'Tidak ada data peminjaman yang tersimpan.'
+            };
+            res.json(ret)
+        }
+    })
 })
 
 module.exports = app;

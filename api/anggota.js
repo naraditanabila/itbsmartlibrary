@@ -45,7 +45,7 @@ app.get('/anggota/umum/:id_umum', async(req,res) => {
         else {
             ret={
                 status:err.code,
-                result: 'nomor identitas tidak terdaftar'
+                result: 'Nomor identitas tidak terdaftar.'
             };
             res.json(ret)
         }
@@ -67,7 +67,7 @@ app.get('/anggota/mahasiswa/:nim', async(req,res) => {
         else {
             ret={
                 status:err.code,
-                result: 'NIM tidak valid'
+                result: 'NIM tidak valid.'
             };
             res.json(ret)
         }
@@ -88,7 +88,7 @@ app.get('/anggota/mahasiswa', async(req,res) => {
         else {
             ret={
                 status:err.code,
-                result: 'Data mahasiswa gagal ditampilkan'
+                result: 'Tidak ada data mahasiswa yang tersimpan.'
             };
             res.json(ret)
         }
@@ -109,7 +109,7 @@ app.get('/anggota/umum', async(req,res) => {
         else {
             ret={
                 status:err.code,
-                result: 'Data anggota umum gagal ditampilkan'
+                result: 'Tidak ada data anggota non-mahasiswa ITB yang disimpan.'
             };
             res.json(ret)
         }

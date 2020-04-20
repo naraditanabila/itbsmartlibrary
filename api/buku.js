@@ -102,7 +102,7 @@ app.get('/buku/list/available',async(req, res) =>{
         else {
             ret={
                 status:err.code,
-                result: err.message
+                result: 'Tidak ada buku yang tersedia saat ini.'
             };
             res.json(ret)
         }
@@ -123,7 +123,7 @@ app.get('/buku/list/all',async(req, res) =>{
         else {
             ret={
                 status:err.code,
-                result: err.message
+                result: 'Tidak ada data buku yang tersimpan.'
             };
             res.json(ret)
         }
