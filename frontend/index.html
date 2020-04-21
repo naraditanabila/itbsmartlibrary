@@ -43,15 +43,15 @@
             <label class="contact100-form-title" for="first-name" align="center">Katalog Buku</label>
 			<!--<div class="wrap-input100">-->
 				<label class="row">
-					<input type="radio" id="male" name="gender" value="male"> <label for="male">Cari berdasarkan judul buku</label><br/>
+					<input type="radio" id="sjudul" name = "search" value="search"> <label for="male">Cari berdasarkan judul buku</label><br/>
 				</label>
 				<label class="row">
-					<br/><input type="radio" id="male" name="gender" value="male"> <label for="male">Cari berdasarkan author buku</label>
+					<br/><input type="radio" id="sauthor" name = "search" value="search"> <label for="male">Cari berdasarkan author buku</label>
 				</label>
 				<form class="form-inline" action="#" style="align-self: center;" method="GET">
-                    <input id="kota" class="input100" type="text" text-align="center" name="kota" placeholder="Masukkan judul/author" > <br/>
+                    <input id="searchBuku" class="input100" type="text" text-align="center" placeholder="Masukkan judul/author" > <br/>
 				<div class="wrapper">
-					<br/><button id="cariData" align="center" onclick="showModal();" class="btn btn-2" type="submit" style="margin:auto;display:block"> Cari</button>
+					<br/><button id="cariData" align="center" onclick="showTabelSearch();" class="btn btn-2" type="submit" style="margin:auto;display:block"> Cari</button>
 				</div>
 				</form>
                 
@@ -127,43 +127,92 @@
 
 	function signIn() {
     }
-		 $(document).ready(function(){
-			 tabmodiv = document.getElementById('tabbodyBuku');
-			 document.getElementById('tabelBuku').style.display = 'block';
-			 $.ajax({
-				url: 'http://178.128.104.74/penjualanformulirpendaftaranpesertapmb/payment',
-				type:'GET',
-				dataType: 'json',
-				success: function(response) {
-					content="";
-					$.each(response, function(key, value){
-						
-						content+=
-							"<tr>" +
-							"<td>"+value.e_pin+"</th>\n" +
-							"<td>"+value.status_pembayaran+"</th>\n" +
-							"<td>"+"<img src="+value.bukti_pembayaran+" alt="+'""'+" border="+3+" height="+100+" width="+100+"></img>"+"</th>\n" +
-							"</tr>";
-					});
-					tabmodiv.innerHTML = content;
-				},
-				error: function(response) {
-					console.log(response);
+	
+	function showTabelSearch() {
+    	var x = document.getElementById("tabelBuku");
+		if ($("#sjudul").is(":checked")){
+			$(document).ready(function(){
+				$.ajax({
+                    url: 'https://itbsmartlibrary.herokuapp.com/buku/search/title/'+encodeURIComponent(document.getElementById('searchBuku').value),
+                    type:'GET',
+                    dataType: 'json',
+                    success: function(response) {
+						console.log(response);
+							content = '';
+							var isitab = document.getElementById('tabbodyBuku')
+							content+=
+							    "<tr>" +
+								    "<td>"+response.result[0].id_buku+"\n"+
+									"<td>"+response.result[0].judul+"\n"+
+                                    "<td>"+response.result[0].author+"\n"+
+                                    "<td>"+response.result[0].lokasi+"\n"+
+                                    "<td>"+response.result[0].jml_total+"\n"+
+                                    "<td>"+response.result[0].jml_pinjam+"\n"+
+                                    "<td>"+response.result[0].jml_avail+"\n"+
+								"</td><tr/>";
+								isitab.innerHTML = content;
+				
+				      }
+				})
+			 });
+		}
+        else {
+			$(document).ready(function(){
+				$.ajax({
+                    url: 'https://itbsmartlibrary.herokuapp.com/buku/search/author/'+encodeURIComponent(document.getElementById('searchBuku').value),
+                    type:'GET',
+                    dataType: 'json',
+                    success: function(response) {
+						console.log(response);
+							content = '';
+							var isitab = document.getElementById('tabbodyBuku')
+							content+=
+								"<tr>" +
+								 "<td>"+response.result[0].id_buku+"\n"+
+									"<td>"+response.result[0].judul+"\n"+
+                                    "<td>"+response.result[0].author+"\n"+
+                                    "<td>"+response.result[0].lokasi+"\n"+
+                                    "<td>"+response.result[0].jml_total+"\n"+
+                                    "<td>"+response.result[0].jml_pinjam+"\n"+
+                                    "<td>"+response.result[0].jml_avail+"\n"+
+								"</td><tr/>";
+							isitab.innerHTML = content;
+							}
+				});
+				});
+		   };
+	}
+		
+	$(document).ready(function(){
+				$.ajax({
+                    url: 'https://itbsmartlibrary.herokuapp.com/buku/list/all',
+                    type:'GET',
+                    dataType: 'json',
+                    success: function(response) {
+						console.log(response);
+							content = '';
+							var isitab = document.getElementById('tabbodyBuku')
+							$.each(response['result'], function(key, value) {
+								content+=
+								"<tr>" +
+									"<td>"+value.id_buku+"\n"+
+									"<td>"+value.judul+"\n"+
+                                    "<td>"+value.author+"\n"+
+                                    "<td>"+value.lokasi+"\n"+
+                                    "<td>"+value.jml_total+"\n"+
+                                    "<td>"+value.jml_pinjam+"\n"+
+                                    "<td>"+value.jml_avail+"\n"+
+								"</td><tr/>";
+							})
+							isitab.innerHTML = content;
+                    },
+                    error: function(response) {
+                        console.log(response);
 				}
 			});
 		});
 	</script>
 
-
-<!-- Global site tag (gtag.js) - Google Analytics 
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-23581568-13');
-  -->
 </script>
 
 </body>

@@ -38,8 +38,9 @@
                 <div class="contact100-form-title">
                     <br/><span class="center">
                         Peminjaman
-                    </span>
-                </div>
+					</span><br/><br/>
+					<button id="adminLogin" onclick="showModal();" class="btn btn-2" type="button">Add Transaksi</button>
+				</div>
 				<table class="center" id="tabelPayment" style="margin-bottom:10px">
                     <thead id="tabheadpayment">
                     <tr>
@@ -55,6 +56,27 @@
                 </table>          
 
 			</form>
+
+			<div id="detailModal" class="modal" role="dialog" style="display: none">
+				<!-- Modal content -->
+				  <div class="modal-dialog" role="document">
+					  <div class="modal-content" >
+						  <div class="modal-header">
+							  <h5 class="modal-title" align="center" id="exampleModalLabel">Add Peminjaman</h5>
+						  </div>
+						  <div class="modal-body">
+							  <!--<div id="dmods">--> 
+								  <p>ID Anggota<input id="id_anggota" class="input100" type="text" name="id_anggota" placeholder="Masukkan ID Anggota" required> </p>
+								  <p>ID Buku<input id="id_buku" class="input100" type="text" name="id_buku" placeholder="Masukkan ID Buku" required> </p>
+							  <!--</div>-->
+						  </div>
+						  <div class="modal-footer">
+								  <button onclick="signIn" id=signin type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+								  <button onclick="hideModal()" id=close type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						  </div>
+					  </div>
+				  </div>
+			  </div>
 
 <!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -74,35 +96,16 @@
 	<script src="js/main.js"></script>
 	
 	<script>
-		 $(document).ready(function(){
-			 tabmodiv = document.getElementById('tabbodypayment');
-			 document.getElementById('tabelPayment').style.display = 'block';
-			 $.ajax({
-				url: 'http://178.128.104.74/penjualanformulirpendaftaranpesertapmb/payment',
-				type:'GET',
-				dataType: 'json',
-				success: function(response) {
-					content="";
-					$.each(response, function(key, value){
-						
-						content+=
-							"<tr>" +
-							"<td>"+value.e_pin+"</th>\n" +
-							"<td>"+value.status_pembayaran+"</th>\n" +
-							"<td>"+"<img src="+value.bukti_pembayaran+" alt="+'""'+" border="+3+" height="+100+" width="+100+"></img>"+"</th>\n" +
-							"</tr>";
-					});
-					tabmodiv.innerHTML = content;
-				},
-				error: function(response) {
-					console.log(response);
-				}
-			});
-		});
+		function showModal() {
+		document.getElementById('detailModal').style.display='block';
+		}
+		function hideModal() {
+		document.getElementById('detailModal').style.display='none';
+		}
 	</script>
 
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics >
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -110,7 +113,7 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-23581568-13');
-</script>
+</script-->
 
 </body>
 </html>
