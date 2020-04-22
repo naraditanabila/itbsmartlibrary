@@ -37,6 +37,7 @@ function searchDataTransaksi() {
 					"<td>"+value.tgl_selesai+"\n"+
                                         "<td>"+value.status_pinjam+"\n"+
 					"<td>"+value.denda+"\n"+
+					"<td><input type='checkbox' id='chk'"+"\n"+
 					"</td><tr/>";
 			})
 			isitab.innerHTML = content;
@@ -68,6 +69,7 @@ function searchDataTransaksi() {
 					"<td>"+value.tgl_selesai+"\n"+
                                     	"<td>"+value.status_pinjam+"\n"+
 					"<td>"+value.denda+"\n"+
+					"<td><input type='checkbox' id='chk'"+"\n"+
 					"</td><tr/>";
 			})
 			isitab.innerHTML = content;
