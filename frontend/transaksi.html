@@ -29,7 +29,7 @@
 </head>
 <body>
     <nav class="navbar navbar-dark bg-primary" id="navbarITB">
-	  <a class="navbar-brand" href="home.html">
+	  <a class="navbar-brand" href="admin_menu.html">
         <img src="images/icons/logo_itb.png" width="50" height="50" alt="">
         UPT Perpustakaan ITB
 	  </a>
@@ -39,22 +39,23 @@
                     <br/><span class="center">
                         Peminjaman
 					</span><br/><br/>
-					<button id="adminLogin" onclick="showModal();" class="btn btn-2" type="button">Add Transaksi</button>
+					<button id="addTransaksi" onclick="showModal();" class="btn btn-2" type="button">Add Transaksi</button>
 				</div>
-				<table class="center" id="tabelPayment" style="margin-bottom:10px">
-                    <thead id="tabheadpayment">
+				<table class="center" id="tabelTransaksi" style="margin-bottom:10px">
+                    <thead id="tabheadTransaksi">
                     <tr>
                         <th>ID Transaksi</th>
-                        <th>Nama</th>
-                        <th>Judul Buku</th>
+                        <th>ID Anggota</th>
+                        <th>ID Buku</th>
                         <th>Tanggal Mulai</th>
-                        <th>Tanggal Selesai</th>
+                        <th>Tanggal Kembali</th>
+						<th>Tanggal Selesai</th>
+						<th>Status Pinjam</th>
                         <th>Denda</th>
                     </tr>
                     </thead>
-                    <tbody id="tabbodypayment"></tbody>
+                    <tbody id="tabbodyTransaksi"></tbody>
                 </table>          
-
 			</form>
 
 			<div id="detailModal" class="modal" role="dialog" style="display: none">
@@ -66,12 +67,12 @@
 						  </div>
 						  <div class="modal-body">
 							  <!--<div id="dmods">--> 
-								  <p>ID Anggota<input id="id_anggota" class="input100" type="text" name="id_anggota" placeholder="Masukkan ID Anggota" required> </p>
-								  <p>ID Buku<input id="id_buku" class="input100" type="text" name="id_buku" placeholder="Masukkan ID Buku" required> </p>
+								  <p>ID Anggota<input id="m_id_anggota" class="input100" type="text" name="id_anggota" placeholder="Masukkan ID Anggota" required> </p>
+								  <p>ID Buku<input id="m_id_buku" class="input100" type="text" name="id_buku" placeholder="Masukkan ID Buku" required> </p>
 							  <!--</div>-->
 						  </div>
 						  <div class="modal-footer">
-								  <button onclick="signIn" id=signin type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+								  <button onclick="addTransaksi" id=addtransaksi type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
 								  <button onclick="hideModal()" id=close type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 						  </div>
 					  </div>
@@ -94,26 +95,47 @@
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+	<script src="js/transaksi.js"></script>
 	
 	<script>
 		function showModal() {
-		document.getElementById('detailModal').style.display='block';
+			document.getElementById('detailModal').style.display='block';
 		}
+
 		function hideModal() {
-		document.getElementById('detailModal').style.display='none';
+			document.getElementById('detailModal').style.display='none';
 		}
+
+		$(document).ready(function(){
+				$.ajax({
+                    url: 'https://itbsmartlibrary.herokuapp.com/peminjaman/list/all',
+                    type:'GET',
+                    dataType: 'json',
+                    success: function(response) {
+						console.log(response);
+							content = '';
+							var isitab = document.getElementById('tabbodyTransaksi')
+							$.each(response['result'], function(key, value) {
+								content+=
+								"<tr>" +
+									"<td>"+value.id_transaksi+"\n"+
+									"<td>"+value.id_anggota+"\n"+
+									"<td>"+value.id_buku+"\n"+
+                                    "<td>"+value.tgl_mulai+"\n"+
+                                    "<td>"+value.tgl_kembali+"\n"+
+									"<td>"+value.tgl_selesai+"\n"+
+                                    "<td>"+value.status_pinjam+"\n"+
+									"<td>"+value.denda+"\n"+
+								"</td><tr/>";
+							})
+							isitab.innerHTML = content;
+                    },
+                    error: function(response) {
+                        console.log(response);
+				}
+			});
+		});
 	</script>
-
-
-<!-- Global site tag (gtag.js) - Google Analytics >
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-23581568-13');
-</script-->
 
 </body>
 </html>

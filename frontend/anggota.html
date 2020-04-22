@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Penerimaan Mahasiswa Baru</title>
+	<meta charset="UTF-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/logo_itb.png"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	<nav class="navbar navbar-dark bg-primary" id="navbarITB">
+        <a class="navbar-brand" href="admin_menu.html">
+          <img src="images/icons/logo_itb.png" width="50" height="50" alt="">
+          UPT Perpustakaan ITB
+        </a>
+      </nav>
+
+	<div class="container-contact100">
+		<div class="col" align="center" style="margin-top:15px">
+		<div class="wrap-contact100">
+            <!--</form> -->
+            <label class="contact100-form-title" for="first-name" align="center">Daftar Anggota Perpustakaan</label>
+            <button id="addAnggota" onclick="showModal();" class="btn btn-2" type="button" style="margin-bottom:50px">Add Anggota Umum</button>
+            <br/><label class="row">
+					<input type="radio" id="smahasiswa" name = "search" value="search"> <label for="male">Cari data mahasiswa</label><br/>
+			</label>
+			<label class="row">
+				<br/><input type="radio" id="sumum" name = "search" value="search"> <label for="male">Cari data umum</label>
+			</label>
+			<form class="form-inline" action="#" style="align-self: center;" method="GET">
+                <input id="searchData" class="input100" type="text" text-align="center" placeholder="Masukkan Nama Anggota" > <br/>
+                <div class="wrapper">
+                    <br/><button id="cariData" align="center" onclick="showDataSearch();" class="btn btn-2" type="submit" style="margin:auto;display:block"> Cari</button>
+                </div>
+            </form>
+        
+            <form class="contact100-form validate-form">
+            <table class="center" id="tabelMahasiswa">Data Mahasiswa
+                    <thead id="tabheadMahasiswa">
+                    <tr>
+                        <th>NIM</th>
+                        <th>Nama</th>
+                        <th>Prodi</th>
+                        <th>Fakultas</th>
+                        <th>Angkatan</th>
+                        <th>Status Aktif</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tabbodyMahasiswa"></tbody>
+                </table>   
+                <br/>
+                <table class="center" id="tabelUmum">Data Umum
+                    <thead id="tabheadUmum">
+                    <tr>
+                        <th>ID Umum</th>
+                        <th>Nama</th>
+                        <th>Alamat</th>
+                        <th>No HP</th>
+                        <th>Email</th>
+                        <th>Pekerjaan</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tabbodyUmum"></tbody>
+                </table>     
+            </form>
+
+            <div id="detailModal" class="modal" role="dialog" style="display: none">
+				<!-- Modal content -->
+				  <div class="modal-dialog" role="document">
+					  <div class="modal-content" >
+						  <div class="modal-header">
+							  <h5 class="modal-title" align="center" id="exampleModalLabel">Add Anggota Umum</h5>
+						  </div>
+						  <div class="modal-body">
+							  <!--<div id="dmods">--> 
+								  <p>ID Umum<input id="m_id_umum" class="input100" type="text" name="id_umum" placeholder="Masukkan ID Umum" required> </p>
+								  <br/><p>Nama<input id="m_nama" class="input100" type="text" name="nama" placeholder="Masukkan Nama" required> </p>
+                                  <br/><p>Alamat<input id="m_alamat" class="input100" type="text" name="alamat" placeholder="Masukkan Alamat" required> </p>
+                                  <br/><p>No HP<input id="m_no_hp" class="input100" type="text" name="no_hp" placeholder="Masukkan No HP" required> </p>
+                                  <br/><p>Email<input id="m_email" class="input100" type="text" name="email" placeholder="Masukkan Email" required> </p>
+                                  <br/><p>Pekerjaan<input id="m_job" class="input100" type="text" name="job" placeholder="Masukkan Pekerjaan" required> </p>
+                                  <!--</div>-->
+						  </div>
+						  <div class="modal-footer">
+								  <button onclick="addUmum()" id=addtransaksi type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+								  <button onclick="hideModal()" id=close type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						  </div>
+					  </div>
+				  </div>
+			  </div>
+
+        </div>
+        </div>
+	</div>
+
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+	
+	<script>
+
+		function showModal() {
+			document.getElementById('detailModal').style.display='block';
+		}
+
+		function hideModal() {
+			document.getElementById('detailModal').style.display='none';
+		}
+
+	 $(document).ready(function(){
+    		$.ajax({
+                    url: 'https://itbsmartlibrary.herokuapp.com/anggota/mahasiswa',
+                    type:'GET',
+                    dataType: 'json',
+                    success: function(response) {
+						console.log(response);
+							content = '';
+							var isitab = document.getElementById('tabbodyMahasiswa')
+							$.each(response['result'], function(key, value) {
+								content+=
+								"<tr>" +
+									"<td>"+value.nim+"\n"+
+									"<td>"+value.nama+"\n"+
+                                    "<td>"+value.fakultas+"\n"+
+                                    "<td>"+value.prodi+"\n"+
+                                    "<td>"+value.angkatan+"\n"+
+                                    "<td>"+value.status_aktif+"\n"+
+								"</td><tr/>";
+							})
+							isitab.innerHTML = content;
+				    }
+				})
+
+                $.ajax({
+                    url: 'https://itbsmartlibrary.herokuapp.com/anggota/umum',
+                    type:'GET',
+                    dataType: 'json',
+                    success: function(response) {
+						console.log(response);
+							content = '';
+							var isitab = document.getElementById('tabbodyUmum')
+							$.each(response['result'], function(key, value) {
+								content+=
+								"<tr>" +
+									"<td>"+value.id_umum+"\n"+
+									"<td>"+value.nama+"\n"+
+                                    "<td>"+value.alamat+"\n"+
+                                    "<td>"+value.no_hp+"\n"+
+                                    "<td>"+value.email+"\n"+
+                                    "<td>"+value.pekerjaan+"\n"+
+								"</td><tr/>";
+							})
+							isitab.innerHTML = content;
+				    }
+				})
+		});
+
+        function showDataSearch() {
+		if ($("#smahasiswa").is(":checked")){
+            document.getElementById('tabelUmum').style.display='none';
+			$(document).ready(function(){
+				$.ajax({
+                    url: 'https://itbsmartlibrary.herokuapp.com/anggota/mahasiswa/'+encodeURIComponent(document.getElementById('searchData').value),
+                    type:'GET',
+                    dataType: 'json',
+                    success: function(response) {
+						console.log(response);
+							content = '';
+							var isitab = document.getElementById('tabbodyMahasiswa')
+							content+=
+							    "<tr>" +
+								    "<td>"+response.result[0].nim+"\n"+
+									"<td>"+response.result[0].nama+"\n"+
+                                    "<td>"+response.result[0].fakultas+"\n"+
+                                    "<td>"+response.result[0].prodi+"\n"+
+                                    "<td>"+response.result[0].angkatan+"\n"+
+                                    "<td>"+response.result[0].status_aktif+"\n"+
+								"</td><tr/>";
+								isitab.innerHTML = content;
+				
+				      }
+				})
+			 });
+		}
+        else {
+            document.getElementById('tabelMahasiswa').style.display='none';
+			$(document).ready(function(){
+				$.ajax({
+                    url: 'https://itbsmartlibrary.herokuapp.com/anggota/umum/'+encodeURIComponent(document.getElementById('searchData').value),
+                    type:'GET',
+                    dataType: 'json',
+                    success: function(response) {
+						console.log(response);
+							content = '';
+							var isitab = document.getElementById('tabbodyUmum')
+							content+=
+								"<tr>" +
+								 "<td>"+response.result[0].id_umum+"\n"+
+									"<td>"+response.result[0].nama+"\n"+
+                                    "<td>"+response.result[0].alamat+"\n"+
+                                    "<td>"+response.result[0].no_hp+"\n"+
+                                    "<td>"+response.result[0].email+"\n"+
+                                    "<td>"+response.result[0].pekerjaan+"\n"+
+								"</td><tr/>";
+							isitab.innerHTML = content;
+							}
+				});
+				});
+		   };
+	}
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-23581568-13');
+	</script>
+</body>
+</html>
