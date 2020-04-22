@@ -33,68 +33,54 @@
         <img src="images/icons/logo_itb.png" width="50" height="50" alt="">
         UPT Perpustakaan ITB
 	  </a>
-	</nav>	
-	<div class="col" align="center" style="margin-top:15px">
-		<div class="wrap-contact100">
-			<form class="contact100-form validate-form">
+    </nav>	
                 <div class="contact100-form-title">
-                    <br/><span class="center">
-                        Peminjaman
-					</span><br/><br/>
-					<button id="addTransaksi" onclick="showModal();" class="btn btn-2" type="button">Tambah Peminjaman</button>
-				</div>
-				<label class="row">
-					<input type="radio" id="sanggota" name = "search" value="search"> <label for="male">Cari berdasarkan ID anggota</label><br/>
-				</label>
-				<label class="row">
-					<br/><input type="radio" id="sbuku" name = "search" value="search"> <label for="male">Cari berdasarkan ID buku</label>
-				</label>
-				<form class="form-inline" action="#" style="align-self: center;" method="GET">
-					<input id="searchTransaksi" class="input100" type="text" text-align="center" placeholder="Masukkan ID Anggota / Buku" > <br/>
-					<div class="wrapper">
-						<br/><button id="cariData" align="center" onclick="searchDataTransaksi()" class="btn btn-secondary" type="submit" style="margin:auto;display:block"> Cari</button><br/>
-					</div>
-				</form>
+                    <br/><span class="center"> Peminjaman </span><br/><br/>
+		    <button id="addTransaksi" onclick="showModal();" class="btn btn-2" type="button">Tambah Peminjaman</button>
+		</div>
+		<label class="row">
+			<input type="radio" id="sanggota" name = "search" value="search"> <label for="male">Cari berdasarkan ID anggota</label><br/>
+		</label>
+		<label class="row">
+			<br/><input type="radio" id="sbuku" name = "search" value="search"> <label for="male">Cari berdasarkan ID buku</label>
+		 </label>
+                 <input id="searchTransaksi" class="input100" type="text" text-align="center" placeholder="Masukkan ID Anggota / Buku" > <br/>
+                 <br/><button id="cariData" align="center" onclick="searchDataTransaksi()" class="btn btn-secondary" type="submit" style="margin:auto;display:block"> Cari</button>
 
-				<table class="center" id="tabelTransaksi" style="margin-bottom:10px">
+		<table class="center" id="tabelTransaksi" style="margin-bottom:10px">
                     <thead id="tabheadTransaksi">
-                    <tr>
-                        <th>ID Transaksi</th>
-                        <th>ID Anggota</th>
-                        <th>ID Buku</th>
-                        <th>Tanggal Mulai</th>
-                        <th>Tanggal Kembali</th>
-						<th>Tanggal Selesai</th>
-						<th>Status Pinjam</th>
-                        <th>Denda</th>
-                    </tr>
+                    	<tr>
+                          <th>ID Transaksi</th>
+                          <th>ID Anggota</th>
+                          <th>ID Buku</th>
+                          <th>Tanggal Mulai</th>
+                          <th>Tanggal Kembali</th>
+			  <th>Tanggal Selesai</th>
+			  <th>Status Pinjam</th>
+                          <th>Denda</th>
+                        </tr>
                     </thead>
                     <tbody id="tabbodyTransaksi"></tbody>
                 </table>          
-			</form>
 
-			<div id="detailModal" class="modal" role="dialog" style="display: none">
-				<!-- Modal content -->
-				  <div class="modal-dialog" role="document">
-					  <div class="modal-content" >
-						  <div class="modal-header">
-							  <h5 class="modal-title" align="center" id="exampleModalLabel">Tambah Peminjaman</h5>
-						  </div>
-						  <div class="modal-body">
-							  <!--<div id="dmods">--> 
-								  <p>ID Anggota<input id="m_id_anggota" class="input100" type="text" name="id_anggota" placeholder="Masukkan ID Anggota" required> </p>
-								  <p>ID Buku<input id="m_id_buku" class="input100" type="text" name="id_buku" placeholder="Masukkan ID Buku" required> </p>
-							  <!--</div>-->
-						  </div>
-						  <div class="modal-footer">
-								  <button onclick="addTransaksi()" id=addtransaksi type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
-								  <button onclick="hideModal()" id=close type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-						  </div>
-					  </div>
-				  </div>
+	 <div id="detailModal" class="modal" role="dialog" style="display: none">
+	  <!-- Modal content -->
+		<div class="modal-dialog" role="document">
+		   <div class="modal-content" >
+			<div class="modal-header">
+			    <h5 class="modal-title" align="center" id="exampleModalLabel">Tambah Peminjaman</h5>
 			</div>
-		</div>
-	</div>
+			<div class="modal-body">
+			     <p>ID Anggota<input id="m_id_anggota" class="input100" type="text" name="id_anggota" placeholder="Masukkan ID Anggota" required> </p>
+			     <p>ID Buku<input id="m_id_buku" class="input100" type="text" name="id_buku" placeholder="Masukkan ID Buku" required> </p>
+		        </div>
+			<div class="modal-footer">
+			      <button onclick="addTransaksi()" id=addtransaksi type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+			      <button onclick="hideModal()" id=close type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		     </div>
+		 </div>
+	  </div>
 
 <!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -116,35 +102,36 @@
 	
 	<script>
 
-		$(document).ready(function(){
-				$.ajax({
-                    url: 'https://api-itbsmartlibrary.herokuapp.com/peminjaman/list/all',
-                    type:'GET',
-                    dataType: 'json',
-                    success: function(response) {
-						console.log(response);
-							content = '';
-							var isitab = document.getElementById('tabbodyTransaksi')
-							$.each(response['result'], function(key, value) {
-								content+=
-								"<tr>" +
-									"<td>"+value.id_transaksi+"\n"+
-									"<td>"+value.id_anggota+"\n"+
-									"<td>"+value.id_buku+"\n"+
-                                    "<td>"+value.tgl_mulai+"\n"+
-                                    "<td>"+value.tgl_kembali+"\n"+
-									"<td>"+value.tgl_selesai+"\n"+
-                                    "<td>"+value.status_pinjam+"\n"+
-									"<td>"+value.denda+"\n"+
-								"</td><tr/>";
-							})
-							isitab.innerHTML = content;
-                    },
-                    error: function(response) {
+	$(document).ready(function(){
+	  $.ajax({
+               url: 'https://api-itbsmartlibrary.herokuapp.com/peminjaman/list/all',
+               type:'GET',
+               dataType: 'json',
+               success: function(response) {
+		    console.log(response);
+		    content = '';
+		    var isitab = document.getElementById('tabbodyTransaksi')
+		    $.each(response['result'], function(key, value) {
+			content+=
+				"<tr>" +
+				"<td>"+value.id_transaksi+"\n"+
+				"<td>"+value.id_anggota+"\n"+
+				"<td>"+value.id_buku+"\n"+
+                                "<td>"+value.tgl_mulai+"\n"+
+                                "<td>"+value.tgl_kembali+"\n"+
+				"<td>"+value.tgl_selesai+"\n"+
+                                "<td>"+value.status_pinjam+"\n"+
+				"<td>"+value.denda+"\n"+
+				"</td><tr/>";
+		      })
+			isitab.innerHTML = content;
+                },
+                error: function(response) {
                         console.log(response);
-				}
-			});
-		});
+		}
+	  });
+	});
+
 	</script>
 	
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
