@@ -174,7 +174,7 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 15px;
-  background: #efefef;  
+  background: #fff;  
 }
 
 .wrap-contact100 {
@@ -207,7 +207,18 @@ iframe {
   color: #333333;
   line-height: 1.2;
   text-align: center;
-  padding-bottom: 45px;
+  padding-bottom: 50px;
+}
+
+.contact100-form-title-2 {
+  width: 100%;
+  display: block;
+  font-family: Raleway-Black;
+  font-size: 30px;
+  color: #333333;
+  line-height: 1.2;
+  text-align: center;
+  padding-bottom: 0px;
 }
 
 
@@ -499,7 +510,7 @@ textarea.input100 {
 }
 
 .btn-2 {
-  font-size: 12px;
+  font-size: 14px;
   font-family: Raleway-Bold;
   color: #fff;
   background-color: #007fff;
