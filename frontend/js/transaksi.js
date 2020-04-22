@@ -4,7 +4,7 @@ const addTransaksi = async() => {
 		id_buku:document.getElementById("m_id_buku").value,	
 	})
 	console.log(data);
-	const response = await fetch('https://itbsmartlibrary.herokuapp.com/peminjaman/add',{
+	const response = await fetch('https://api-itbsmartlibrary.herokuapp.com/peminjaman/add',{
 		method:'POST',
 		headers:{ 
 			'Content-Type':'application/json'

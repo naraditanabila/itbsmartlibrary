@@ -7,7 +7,7 @@ const addBuku = async() => {
         jml_total:document.getElementById("m_jml_total").value,
 	})
 	console.log(data);
-	const response = await fetch('https://itbsmartlibrary.herokuapp.com/buku/add',{
+	const response = await fetch('https://api-itbsmartlibrary.herokuapp.com/buku/add',{
 		method:'POST',
 		headers:{ 
 			'Content-Type':'application/json'
@@ -23,7 +23,7 @@ function showTabelSearch() {
 		if ($("#sjudul").is(":checked")){
 			$(document).ready(function(){
 				$.ajax({
-                    url: 'https://itbsmartlibrary.herokuapp.com/buku/search/title/'+encodeURIComponent(document.getElementById('searchBuku').value),
+                    url: 'https://api-itbsmartlibrary.herokuapp.com/buku/search/title/'+encodeURIComponent(document.getElementById('searchBuku').value),
                     type:'GET',
                     dataType: 'json',
                     success: function(response) {
@@ -48,7 +48,7 @@ function showTabelSearch() {
         else {
 			$(document).ready(function(){
 				$.ajax({
-                    url: 'https://itbsmartlibrary.herokuapp.com/buku/search/author/'+encodeURIComponent(document.getElementById('searchBuku').value),
+                    url: 'https://api-itbsmartlibrary.herokuapp.com/buku/search/author/'+encodeURIComponent(document.getElementById('searchBuku').value),
                     type:'GET',
                     dataType: 'json',
                     success: function(response) {
