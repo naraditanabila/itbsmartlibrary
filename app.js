@@ -29,4 +29,8 @@ app.use(anggotaRouter)
 app.use(bukuRouter)
 app.use(peminjamanRouter)
 
-module.exports = app;
+app.listen(port, function() {
+    console.log(`Server Starts on '${port}'`)
+});
+
+//module.exports = app;
