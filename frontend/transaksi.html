@@ -35,12 +35,10 @@
 	  </a>
     </nav>	
 	<div class="col" align="center" style="margin-top:15px">
-	<div class="wrap-contact100">
-	<form class="contact100-form validate-form">
-                <div class="contact100-form-title">
-                    <br/><span class="center"> Peminjaman </span><br/><br/>
-		    <button id="addTransaksi" onclick="showModal();" class="btn btn-2" type="button">Tambah Peminjaman</button>
-		</div>
+	  <div class="wrap-contact100">
+                <br/><span class="center"> Peminjaman </span><br/><br/>
+		<button id="addTransaksi" onclick="showModal();" class="btn btn-2" type="button">Tambah Peminjaman</button>
+	  </div>
 		<label class="row">
 			<input type="radio" id="sanggota" name = "search" value="search"> <label for="male">Cari berdasarkan ID anggota</label><br/>
 		</label>
@@ -49,7 +47,7 @@
 		 </label>
                  <input id="searchTransaksi" class="input100" type="text" text-align="center" placeholder="Masukkan ID Anggota / Buku" > <br/>
                  <br/><button id="cariData" align="center" onclick="searchDataTransaksi()" class="btn btn-secondary" type="submit" style="margin:auto;display:block"> Cari</button>
-
+	</div>
 		<table class="center" id="tabelTransaksi" style="margin-bottom:10px">
                     <thead id="tabheadTransaksi">
                     	<tr>
