@@ -2,7 +2,7 @@
   "openapi" : "3.0.0",
   "info" : {
     "title" : "ITB Smart Library",
-    "description" : "Web Service ini menyediakan method-method untuk pengaksesan database perpustakaan.",
+    "description" : "Web Service ITB Smart Library.",
     "contact" : {
       "name" : "Naradita",
       "email" : "naraditanabila@gmail.com"
@@ -14,8 +14,8 @@
     "version" : "1.0.1"
   },
   "servers" : [ {
-    "url" : "https://itbsmartlibrary.herokuapp.com/",
-    "description" : "Web Service ITB Smart Library"
+    "url" : "https://api-itbsmartlibrary.herokuapp.com/",
+    "description" : "Web API ITB Smart Library"
   } ],
   "security" : [ {
     "application" : [ "read", "write" ]
