@@ -6,7 +6,7 @@ const addTransaksi = async() => {
 	console.log(data);
 	const response = await fetch('https://itbsmartlibrary.herokuapp.com/peminjaman/add',{
 		method:'POST',
-		headers:{
+		headers:{ 
 			'Content-Type':'application/json'
 		},
 		body: data

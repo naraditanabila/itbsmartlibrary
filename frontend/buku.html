@@ -29,12 +29,10 @@
 </head>
 <body>
     <nav class="navbar navbar-dark bg-primary" id="navbarITB">
-	  <a class="navbar-brand" href="home.html">
+	  <a class="navbar-brand" href="admin_menu.html">
         <img src="images/icons/logo_itb.png" width="50" height="50" alt="">
         UPT Perpustakaan ITB
 	  </a>
-	  
-	  <button id="adminLogin" onclick="showModal();" class="btn btn-1" type="submit">Login as Admin</button>
 	</nav>	
 	
 	<div class="col" align="center" style="margin-top:15px">
@@ -42,6 +40,8 @@
             <!--</form> -->
             <label class="contact100-form-title" for="first-name" align="center">Katalog Buku</label>
 			<!--<div class="wrap-input100">-->
+                <button id="addBuku" onclick="showModal();" class="btn btn-primary" type="button" style="margin-bottom:50px">Tambah Buku</button>
+                <br/>
 				<label class="row">
 					<input type="radio" id="sjudul" name = "search" value="search"> <label for="male">Cari berdasarkan judul buku</label><br/>
 				</label>
@@ -51,7 +51,7 @@
 				<form class="form-inline" action="#" style="align-self: center;" method="GET">
                     <input id="searchBuku" class="input100" type="text" text-align="center" placeholder="Masukkan judul/author" > <br/>
 				<div class="wrapper">
-					<br/><button id="cariData" align="center" onclick="showTabelSearch();" class="btn btn-2" type="submit" style="margin:auto;display:block"> Cari</button>
+					<br/><button id="cariData" align="center" onclick="showTabelSearch();" class="btn btn-secondary" type="submit" style="margin:auto;display:block"> Cari</button>
 				</div>
 				</form>
                 
@@ -81,16 +81,19 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content" >
                 <div class="modal-header">
-                    <h5 class="modal-title" align="center" id="exampleModalLabel">Login</h5>
+                    <h5 class="modal-title" align="center" id="exampleModalLabel">Tambah Buku</h5>
                 </div>
                 <div class="modal-body">
                     <!--<div id="dmods">-->
-                        <p>Username : <input id="username" class="input100" type="text" name="username" placeholder="Masukkan username" required> </p>
-                        <p>Password : <input id="password" class="input100" type="password" name="password" placeholder="Masukkan password" required> </p>
+						<p>ID Buku<input id="m_id_buku" class="input100" type="text" name="idbuku" placeholder="Masukkan ID Buku" required> </p>
+                        <br/><p>Judul<input id="m_judul" class="input100" type="text" name="judul" placeholder="Masukkan Judul Buku" required> </p>
+                        <br/><p>Author<input id="m_author" class="input100" type="text" name="author" placeholder="Masukkan Author" required> </p>
+                        <br/><p>Lokasi<input id="m_lokasi" class="input100" type="text" name="lokasi" placeholder="Masukkan Lokasi Buku" required> </p>
+                        <br/><p>Jumlah Buku<input id="m_jml_total" class="input100" type="text" name="jml_total" placeholder="Masukkan Jumlah Buku" required> </p>
                     <!--</div>-->
                 </div>
                 <div class="modal-footer">
-                        <button onclick="signIn()" id=signin type="button" class="btn btn-primary" data-dismiss="modal">Sign In</button>
+                        <button onclick="addBuku()" id=addbuku type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
 						<button onclick="hideModal()" id=close type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -112,14 +115,14 @@
 <!--===============================================================================================-->
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
-	<script src="js/login_admin.js"></script>
 	<script src="js/main.js"></script>
+	<script src="js/buku.js"></script>
 	
 	
-	<script>	
+	<script>
 			
 	$(document).ready(function(){
-				$.ajax({
+		$.ajax({
                     url: 'https://itbsmartlibrary.herokuapp.com/buku/list/all',
                     type:'GET',
                     dataType: 'json',
@@ -148,6 +151,13 @@
 		});
 	</script>
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-23581568-13');
 </script>
 
 </body>

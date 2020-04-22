@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Penerimaan Mahasiswa Baru</title>
+	<title>UPT Perpustakaan ITB</title>
 	<meta charset="UTF-8"> 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -40,7 +40,7 @@
 		<div class="wrap-contact100">
             <!--</form> -->
             <label class="contact100-form-title" for="first-name" align="center">Daftar Anggota Perpustakaan</label>
-            <button id="addAnggota" onclick="showModal();" class="btn btn-2" type="button" style="margin-bottom:50px">Add Anggota Umum</button>
+            <button id="addAnggota" onclick="showModal();" class="btn btn-2" type="button" style="margin-bottom:50px">Tambah Anggota Umum</button>
             <br/><label class="row">
 					<input type="radio" id="smahasiswa" name = "search" value="search"> <label for="male">Cari data mahasiswa</label><br/>
 			</label>
@@ -50,12 +50,12 @@
 			<form class="form-inline" action="#" style="align-self: center;" method="GET">
                 <input id="searchData" class="input100" type="text" text-align="center" placeholder="Masukkan Nama Anggota" > <br/>
                 <div class="wrapper">
-                    <br/><button id="cariData" align="center" onclick="showDataSearch();" class="btn btn-2" type="submit" style="margin:auto;display:block"> Cari</button>
+                    <br/><button id="cariData" align="center" onclick="showDataSearch();" class="btn btn-secondary" type="submit" style="margin:auto;display:block"> Cari</button>
                 </div>
             </form>
         
             <form class="contact100-form validate-form">
-            <table class="center" id="tabelMahasiswa">Data Mahasiswa
+            <br/><table class="center" id="tabelMahasiswa">Data Mahasiswa
                     <thead id="tabheadMahasiswa">
                     <tr>
                         <th>NIM</th>
@@ -89,11 +89,10 @@
 				  <div class="modal-dialog" role="document">
 					  <div class="modal-content" >
 						  <div class="modal-header">
-							  <h5 class="modal-title" align="center" id="exampleModalLabel">Add Anggota Umum</h5>
+							  <h5 class="modal-title" align="center" id="exampleModalLabel">Tambah Anggota Umum</h5>
 						  </div>
 						  <div class="modal-body">
 							  <!--<div id="dmods">--> 
-								  <p>ID Umum<input id="m_id_umum" class="input100" type="text" name="id_umum" placeholder="Masukkan ID Umum" required> </p>
 								  <br/><p>Nama<input id="m_nama" class="input100" type="text" name="nama" placeholder="Masukkan Nama" required> </p>
                                   <br/><p>Alamat<input id="m_alamat" class="input100" type="text" name="alamat" placeholder="Masukkan Alamat" required> </p>
                                   <br/><p>No HP<input id="m_no_hp" class="input100" type="text" name="no_hp" placeholder="Masukkan No HP" required> </p>
@@ -128,7 +127,8 @@
 <!--===============================================================================================-->
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
-	<script src="js/main.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/anggota.js"></script>
 	
 	<script>
 
@@ -187,60 +187,6 @@
 				    }
 				})
 		});
-
-        function showDataSearch() {
-		if ($("#smahasiswa").is(":checked")){
-            document.getElementById('tabelUmum').style.display='none';
-			$(document).ready(function(){
-				$.ajax({
-                    url: 'https://itbsmartlibrary.herokuapp.com/anggota/mahasiswa/'+encodeURIComponent(document.getElementById('searchData').value),
-                    type:'GET',
-                    dataType: 'json',
-                    success: function(response) {
-						console.log(response);
-							content = '';
-							var isitab = document.getElementById('tabbodyMahasiswa')
-							content+=
-							    "<tr>" +
-								    "<td>"+response.result[0].nim+"\n"+
-									"<td>"+response.result[0].nama+"\n"+
-                                    "<td>"+response.result[0].fakultas+"\n"+
-                                    "<td>"+response.result[0].prodi+"\n"+
-                                    "<td>"+response.result[0].angkatan+"\n"+
-                                    "<td>"+response.result[0].status_aktif+"\n"+
-								"</td><tr/>";
-								isitab.innerHTML = content;
-				
-				      }
-				})
-			 });
-		}
-        else {
-            document.getElementById('tabelMahasiswa').style.display='none';
-			$(document).ready(function(){
-				$.ajax({
-                    url: 'https://itbsmartlibrary.herokuapp.com/anggota/umum/'+encodeURIComponent(document.getElementById('searchData').value),
-                    type:'GET',
-                    dataType: 'json',
-                    success: function(response) {
-						console.log(response);
-							content = '';
-							var isitab = document.getElementById('tabbodyUmum')
-							content+=
-								"<tr>" +
-								 "<td>"+response.result[0].id_umum+"\n"+
-									"<td>"+response.result[0].nama+"\n"+
-                                    "<td>"+response.result[0].alamat+"\n"+
-                                    "<td>"+response.result[0].no_hp+"\n"+
-                                    "<td>"+response.result[0].email+"\n"+
-                                    "<td>"+response.result[0].pekerjaan+"\n"+
-								"</td><tr/>";
-							isitab.innerHTML = content;
-							}
-				});
-				});
-		   };
-	}
 </script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
@@ -250,6 +196,7 @@
 	gtag('js', new Date());
 
 	gtag('config', 'UA-23581568-13');
-	</script>
+</script>
+
 </body>
 </html>
