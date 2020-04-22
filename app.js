@@ -1,7 +1,7 @@
 const Express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const port = process.env.PORT||3001
+const port = process.env.PORT||3000
 const app = Express()
 const Pool = require('pg').Pool
 require('dotenv').config()
@@ -33,4 +33,4 @@ app.listen(port, function() {
     console.log(`Server Starts on '${port}'`)
 });
 
-//module.exports = app;
+module.exports = app;
