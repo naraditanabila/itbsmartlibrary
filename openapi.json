@@ -1,0 +1,612 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "ITB Smart Library",
+    "description" : "Web Service ini menyediakan method-method untuk pengaksesan database perpustakaan.",
+    "contact" : {
+      "name" : "Naradita",
+      "email" : "naraditanabila@gmail.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version" : "1.0.1"
+  },
+  "servers" : [ {
+    "url" : "https://itbsmartlibrary.herokuapp.com/",
+    "description" : "Web Service ITB Smart Library"
+  } ],
+  "security" : [ {
+    "application" : [ "read", "write" ]
+  } ],
+  "tags" : [ {
+    "name" : "anggota",
+    "description" : "untuk pengaksesan tabel anggota"
+  }, {
+    "name" : "buku",
+    "description" : "untuk pengaksesan tabel buku"
+  }, {
+    "name" : "peminjaman",
+    "description" : "untuk pengaksesan tabel peminjaman"
+  } ],
+  "paths" : {
+    "/anggota/register" : {
+      "post" : {
+        "tags" : [ "anggota" ],
+        "summary" : "register",
+        "description" : "Untuk mendaftarkan anggota perpustakaan baru non mahasiswa ITB agar bisa melakukan peminjaman buku",
+        "operationId" : "register",
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Anggota baru berhasil ditambahkan"
+          }
+        }
+      }
+    },
+    "/anggota/umum" : {
+      "get" : {
+        "tags" : [ "anggota" ],
+        "summary" : "displayUmum",
+        "description" : "Menampilkan data anggota non mahasiswa ITB keseluruhan",
+        "operationId" : "displayUmum",
+        "responses" : {
+          "200" : {
+            "description" : "Data anggota non mahasiswa ITB berhasil ditampilkan.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/anggota/umum/{id_umum}" : {
+      "get" : {
+        "tags" : [ "anggota" ],
+        "summary" : "displayUmumByID",
+        "description" : "Menampilkan data anggota non mahasiswa ITB keseluruhan",
+        "operationId" : "displayUmumByID",
+        "parameters" : [ {
+          "name" : "id_umum",
+          "in" : "path",
+          "description" : "id umum",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "number"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Data anggota non mahasiswa ITB dengan ID tertentu berhasil ditampilkan.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/anggota/mahasiswa" : {
+      "get" : {
+        "tags" : [ "anggota" ],
+        "summary" : "displayMahasiswa",
+        "description" : "Menampilkan data anggota mahasiswa ITB keseluruhan",
+        "operationId" : "displayMahasiswa",
+        "responses" : {
+          "200" : {
+            "description" : "Data anggota mahasiswa ITB berhasil ditampilkan.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/anggota/mahasiswa/{nim}" : {
+      "get" : {
+        "tags" : [ "anggota" ],
+        "summary" : "displayMahasiswaByID",
+        "description" : "Menampilkan data anggota mahasiswa ITB keseluruhan",
+        "operationId" : "displayMahasiswaByID",
+        "parameters" : [ {
+          "name" : "nim",
+          "in" : "path",
+          "description" : "nim",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "number"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Data anggota mahasiswa ITB dengan NIM tertentu berhasil ditampilkan.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/buku/add" : {
+      "post" : {
+        "tags" : [ "buku" ],
+        "summary" : "addNewBook",
+        "description" : "Untuk menambahkan data buku baru",
+        "operationId" : "addNewBook",
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_1"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Data buku baru berhasil ditambahkan"
+          }
+        }
+      }
+    },
+    "/buku/add/{id_buku}" : {
+      "put" : {
+        "tags" : [ "buku" ],
+        "summary" : "updateNumberOfBook",
+        "description" : "Mengupdate jumlah buku yang sudah tersedia di perpustakaan.",
+        "parameters" : [ {
+          "name" : "id_buku",
+          "in" : "path",
+          "description" : "id buku",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "number"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_2"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Jumlah buku berhasil diupdate."
+          }
+        }
+      }
+    },
+    "/buku/search/title/{judul}" : {
+      "get" : {
+        "tags" : [ "buku" ],
+        "summary" : "searchBookByTitle",
+        "description" : "Menampilkan data buku dengan judul tertentu",
+        "operationId" : "searchBookByTitle",
+        "parameters" : [ {
+          "name" : "judul",
+          "in" : "path",
+          "description" : "judul",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Data buku dengan judul tertentu berhasil ditampilkan.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_2"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/buku/search/author/{author}" : {
+      "get" : {
+        "tags" : [ "buku" ],
+        "summary" : "searchBookByAuthor",
+        "description" : "Menampilkan data buku dengan penulis tertentu",
+        "operationId" : "searchBookByAuthor",
+        "parameters" : [ {
+          "name" : "author",
+          "in" : "path",
+          "description" : "author",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Data buku dengan penulis tertentu berhasil ditampilkan.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_2"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/buku/list/all" : {
+      "get" : {
+        "tags" : [ "buku" ],
+        "summary" : "displayAllBook",
+        "description" : "Menampilkan data buku yang dimiliki perpustakaan",
+        "operationId" : "displayAllBook",
+        "responses" : {
+          "200" : {
+            "description" : "Data buku yang dimiliki perpustakaan berhasil ditampilkan.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_2"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/peminjaman/add" : {
+      "post" : {
+        "tags" : [ "peminjaman" ],
+        "summary" : "addNewTransaction",
+        "description" : "Untuk menambahkan data peminjaman baru",
+        "operationId" : "addNewTransaction",
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_3"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Data peminjaman berhasil ditambahkan."
+          }
+        }
+      }
+    },
+    "/peminjaman/update" : {
+      "put" : {
+        "tags" : [ "peminjaman" ],
+        "summary" : "updateTransaction",
+        "description" : "Mengupdate data peminjaman buku",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_4"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Data peminjaman buku berhasil terupdate."
+          }
+        }
+      }
+    },
+    "/peminjaman/search/anggota/{id_anggota}" : {
+      "get" : {
+        "tags" : [ "peminjaman" ],
+        "summary" : "searchTransactionByIDMember",
+        "description" : "Menampilkan data peminjaman buku dengan id anggota tertentu",
+        "operationId" : "searchTransactionByIDMember",
+        "parameters" : [ {
+          "name" : "id_anggota",
+          "in" : "path",
+          "description" : "id anggota",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "number"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Data peminjaman buku dengan id anggota tertentu berhasil ditampilkan.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_3"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/peminjaman/search/buku/{id_buku}" : {
+      "get" : {
+        "tags" : [ "peminjaman" ],
+        "summary" : "searchTansactionByIDBook",
+        "description" : "Menampilkan data buku dengan penulis tertentu",
+        "operationId" : "searchTansactionByIDBook",
+        "parameters" : [ {
+          "name" : "id_buku",
+          "in" : "path",
+          "description" : "id buku",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Data peminjaman buku dengan id buku tertentu berhasil ditampilkan.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_3"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/peminjaman/list/all" : {
+      "get" : {
+        "tags" : [ "peminjaman" ],
+        "summary" : "displayAllTransaction",
+        "description" : "Menampilkan data peminjaman byku yang tersimpan",
+        "operationId" : "displayAllTransaction",
+        "responses" : {
+          "200" : {
+            "description" : "Data peminjaman buku keseluruhan berhasil ditampilkan.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_3"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "body" : {
+        "type" : "object",
+        "properties" : {
+          "nama" : {
+            "type" : "string"
+          },
+          "alamat" : {
+            "type" : "string"
+          },
+          "no_hp" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "pekerjaan" : {
+            "type" : "string"
+          }
+        }
+      },
+      "inline_response_200" : {
+        "type" : "object",
+        "properties" : {
+          "id_umum" : {
+            "type" : "number"
+          },
+          "nama" : {
+            "type" : "string"
+          },
+          "alamat" : {
+            "type" : "string"
+          },
+          "no_hp" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "pekerjaan" : {
+            "type" : "string"
+          }
+        }
+      },
+      "inline_response_200_1" : {
+        "type" : "object",
+        "properties" : {
+          "nim" : {
+            "type" : "number"
+          },
+          "nama" : {
+            "type" : "string"
+          },
+          "fakultas" : {
+            "type" : "string"
+          },
+          "prodi" : {
+            "type" : "string"
+          },
+          "angkatan" : {
+            "type" : "string"
+          },
+          "status_aktif" : {
+            "type" : "string"
+          }
+        }
+      },
+      "body_1" : {
+        "type" : "object",
+        "properties" : {
+          "id_buku" : {
+            "type" : "number"
+          },
+          "judul" : {
+            "type" : "string"
+          },
+          "author" : {
+            "type" : "string"
+          },
+          "lokasi" : {
+            "type" : "string"
+          },
+          "jml_total" : {
+            "type" : "number"
+          }
+        }
+      },
+      "body_2" : {
+        "required" : [ "jml_buku" ],
+        "type" : "object",
+        "properties" : {
+          "jml_buku" : {
+            "type" : "number"
+          }
+        }
+      },
+      "inline_response_200_2" : {
+        "type" : "object",
+        "properties" : {
+          "id_buku" : {
+            "type" : "number"
+          },
+          "judul" : {
+            "type" : "string"
+          },
+          "author" : {
+            "type" : "string"
+          },
+          "lokasi" : {
+            "type" : "string"
+          },
+          "jml_total" : {
+            "type" : "number"
+          },
+          "jml_pinjam" : {
+            "type" : "number"
+          },
+          "jml_avail" : {
+            "type" : "number"
+          }
+        }
+      },
+      "body_3" : {
+        "type" : "object",
+        "properties" : {
+          "id_anggota" : {
+            "type" : "number"
+          },
+          "id_buku" : {
+            "type" : "number"
+          }
+        }
+      },
+      "body_4" : {
+        "required" : [ "id_anggota", "id_buku" ],
+        "type" : "object",
+        "properties" : {
+          "id_anggota" : {
+            "type" : "number"
+          },
+          "id_buku" : {
+            "type" : "number"
+          }
+        }
+      },
+      "inline_response_200_3" : {
+        "type" : "object",
+        "properties" : {
+          "id_transaksi" : {
+            "type" : "number"
+          },
+          "id_anggota" : {
+            "type" : "number"
+          },
+          "id_buku" : {
+            "type" : "number"
+          },
+          "tgl_mulai" : {
+            "type" : "string"
+          },
+          "tgl_kembali" : {
+            "type" : "string"
+          },
+          "status_pinjam" : {
+            "type" : "boolean"
+          },
+          "tgl_selesai" : {
+            "type" : "string"
+          },
+          "denda" : {
+            "type" : "number"
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "application" : {
+        "type" : "oauth2",
+        "flows" : {
+          "clientCredentials" : {
+            "tokenUrl" : "http://example.com/oauth/token",
+            "scopes" : {
+              "write" : "allows modifying resources",
+              "read" : "allows reading resources"
+            }
+          }
+        }
+      }
+    }
+  }
+}
