@@ -6,6 +6,9 @@ const app = Express()
 const Pool = require('pg').Pool
 require('dotenv').config()
 
+var static = require ('node-static')
+var file = new static.Server('./frontend');
+
 const db = new Pool({
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
@@ -17,6 +20,12 @@ const db = new Pool({
 
 db.connect();
 
+
+/*const app = require('http').createServer(function(request, response){
+  request.addListener('end', function() {
+    file.serve(request,response);
+  }).resume();
+})*/
 
 const anggotaRouter = require('./api/anggota')
 const bukuRouter = require('./api/buku')
@@ -30,16 +39,6 @@ app.use(anggotaRouter)
 app.use(bukuRouter)
 app.use(peminjamanRouter)
 
- 
-var static = require ('node-static')
-var file = new static.Server('./frontend');
-
-require('http').createServer(function(request, response){
-  request.addListener('end', function() {
-    file.serve(request,response);
-  }).resume();
-}).listen(port);
-
-/*app.listen(port, function() {
+app.listen(port, function() {
   console.log(`Server Starts on '${port}'`)
-});*/
+});
