@@ -41,6 +41,19 @@
 					</span><br/><br/>
 					<button id="addTransaksi" onclick="showModal();" class="btn btn-2" type="button">Tambah Peminjaman</button>
 				</div>
+				<label class="row">
+					<input type="radio" id="sanggota" name = "search" value="search"> <label for="male">Cari berdasarkan ID anggota</label><br/>
+			</label>
+			<label class="row">
+				<br/><input type="radio" id="sbuku" name = "search" value="search"> <label for="male">Cari berdasarkan ID buku</label>
+			</label>
+			<form class="form-inline" action="#" style="align-self: center;" method="GET">
+                <input id="searchTransaksi" class="input100" type="text" text-align="center" placeholder="Masukkan ID Anggota / Buku" > <br/>
+                <div class="wrapper">
+                    <br/><button id="cariData" align="center" onclick="searchDataTransaksi()" class="btn btn-secondary" type="submit" style="margin:auto;display:block"> Cari</button>
+                </div>
+            </form>
+
 				<table class="center" id="tabelTransaksi" style="margin-bottom:10px">
                     <thead id="tabheadTransaksi">
                     <tr>
@@ -128,6 +141,79 @@
 				}
 			});
 		});
+
+		
+	function searchDataTransaksi() {
+		if ($("#sanggota").is(":checked")){
+			$(document).ready(function(){
+				$.ajax({
+                    url: 'https://itbsmartlibrary.herokuapp.com/peminjaman/search/anggota'+encodeURIComponent(document.getElementById('searchTransaksi').value),							   
+					type:'GET',
+                    dataType: 'json',
+                    success: function(response) {
+						console.log(response);
+							content = '';
+							var isitab = document.getElementById('tabbodyTransaksi')
+							$.each(response['result'], function(key, value) {
+								content+=
+								"<tr>" +
+									"<td>"+value.id_transaksi+"\n"+
+									"<td>"+value.id_anggota+"\n"+
+									"<td>"+value.id_buku+"\n"+
+                                    "<td>"+value.tgl_mulai+"\n"+
+                                    "<td>"+value.tgl_kembali+"\n"+
+									"<td>"+value.tgl_selesai+"\n"+
+                                    "<td>"+value.status_pinjam+"\n"+
+									"<td>"+value.denda+"\n"+
+								"</td><tr/>";
+							})
+							isitab.innerHTML = content;
+                    },
+                    error: function(response) {
+                        console.log(response);
+				
+				      }
+				})
+			 });
+		}
+        else {
+			$(document).ready(function(){
+				$.ajax({
+                   url: 'https://itbsmartlibrary.herokuapp.com/peminjaman/search/buku'+encodeURIComponent(document.getElementById('searchTransaksi').value),	
+				   	type:'GET',
+                    dataType: 'json',
+                    success: function(response) {
+						console.log(response);
+							content = '';
+							var isitab = document.getElementById('tabbodyTransaksi')
+							$.each(response['result'], function(key, value) {
+								content+=
+								"<tr>" +
+									"<td>"+value.id_transaksi+"\n"+
+									"<td>"+value.id_anggota+"\n"+
+									"<td>"+value.id_buku+"\n"+
+                                    "<td>"+value.tgl_mulai+"\n"+
+                                    "<td>"+value.tgl_kembali+"\n"+
+									"<td>"+value.tgl_selesai+"\n"+
+                                    "<td>"+value.status_pinjam+"\n"+
+									"<td>"+value.denda+"\n"+
+								"</td><tr/>";
+							})
+							isitab.innerHTML = content;
+                    },
+				});
+			});
+		};
+	}
 	</script>
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-23581568-13');
+</script>
 </body>
 </html>
