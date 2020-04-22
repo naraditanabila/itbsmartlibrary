@@ -7,7 +7,7 @@ const addUmum = async() => {
 		pekerjaan:document.getElementById("m_job").value,
 	})
 	console.log(data);
-	const response = await fetch('https://api-itbsmartlibrary.herokuapp.com/anggota/register',{
+	const response = await fetch('https://itbsmartlibrary.herokuapp.com/anggota/register',{
 		method:'POST',
 		headers:{ 
 			'Content-Type':'application/json'
@@ -23,7 +23,7 @@ function showDataSearch() {
             document.getElementById('tabelUmum').style.display='none';
 			$(document).ready(function(){
 				$.ajax({
-                    url: 'https://api-itbsmartlibrary.herokuapp.com/anggota/mahasiswa/'+encodeURIComponent(document.getElementById('searchData').value),
+                    url: 'https://itbsmartlibrary.herokuapp.com/anggota/mahasiswa/'+encodeURIComponent(document.getElementById('searchData').value),
                     type:'GET',
                     dataType: 'json',
                     success: function(response) {
@@ -49,7 +49,7 @@ function showDataSearch() {
             document.getElementById('tabelMahasiswa').style.display='none';
 			$(document).ready(function(){
 				$.ajax({
-                    url: 'https://api-itbsmartlibrary.herokuapp.com/anggota/umum/'+encodeURIComponent(document.getElementById('searchData').value),
+                    url: 'https://itbsmartlibrary.herokuapp.com/anggota/umum/'+encodeURIComponent(document.getElementById('searchData').value),
                     type:'GET',
                     dataType: 'json',
                     success: function(response) {

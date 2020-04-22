@@ -11,7 +11,7 @@ function showModal() {
 		if ($("#sjudul").is(":checked")){
 			$(document).ready(function(){
 				$.ajax({
-                    url: 'https://api-itbsmartlibrary.herokuapp.com/buku/search/title/'+encodeURIComponent(document.getElementById('searchBuku').value),
+                    url: 'https://itbsmartlibrary.herokuapp.com/buku/search/title/'+encodeURIComponent(document.getElementById('searchBuku').value),
                     type:'GET',
                     dataType: 'json',
                     success: function(response) {
@@ -37,7 +37,7 @@ function showModal() {
         else {
 			$(document).ready(function(){
 				$.ajax({
-                    url: 'https://api-itbsmartlibrary.herokuapp.com/buku/search/author/'+encodeURIComponent(document.getElementById('searchBuku').value),
+                    url: 'https://itbsmartlibrary.herokuapp.com/buku/search/author/'+encodeURIComponent(document.getElementById('searchBuku').value),
                     type:'GET',
                     dataType: 'json',
                     success: function(response) {
