@@ -19,7 +19,7 @@ function searchDataTransaksi() {
 	if ($("#sanggota").is(":checked")){
 	$(document).ready(function(){
 		$.ajax({
-                  url: 'https://api-itbsmartlibrary.herokuapp.com/peminjaman/search/anggota/'+encodeURIComponent(document.getElementById('searchTransaksi').value),							   
+                  url: 'https://api-itbsmartlibrary.herokuapp.com/peminjaman/search/anggota'+encodeURIComponent(document.getElementById('searchTransaksi').value),							   
 		  type:'GET',
                   dataType: 'json',
                   success: function(response) {
@@ -50,7 +50,7 @@ function searchDataTransaksi() {
         else {
 	  $(document).ready(function(){
 		$.ajax({
-                   url: 'https://api-itbsmartlibrary.herokuapp.com/peminjaman/search/buku/'+encodeURIComponent(document.getElementById('searchTransaksi').value),	
+                   url: 'https://api-itbsmartlibrary.herokuapp.com/peminjaman/search/buku'+encodeURIComponent(document.getElementById('searchTransaksi').value),	
 		   type:'GET',
                    dataType: 'json',
                    success: function(response) {
