@@ -4,7 +4,15 @@ function showModal() {
 
 	function hideModal() {
 	document.getElementById('detailModal').style.display='none';
-    }
+	}
+	
+	function showModal2() {
+		document.getElementById('detailModal2').style.display='block';
+	}
+	
+	function hideModal2() {
+		document.getElementById('detailModal2').style.display='none';
+	}
 	
 	function showTabelSearch() {
     	var x = document.getElementById("tabelBuku");
