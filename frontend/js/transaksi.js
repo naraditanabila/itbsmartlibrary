@@ -78,29 +78,3 @@ function searchDataTransaksi() {
 	    });
 	};
 }
-	function transaksiSelesai() {
-	document.getElementById('updateModal').style.display='block';
-    }
-	function closeModal() {
-	document.getElementById('updateModal').style.display='none';
-    }
-	function updateTransaksi() {
-	  $(document).ready(function(){
-		const anggota = document.getElementById("up_id_anggota").value;
-		const buku = document.getElementById("up_id_buku").value;
-		const data = JSON.stringify({
-			id_anggota: anggota,
-			id_buku: buku});
-		console.log(data);
-		$.ajax({
-           	   type:'PUT',
-		   url: 'https://api-itbsmartlibrary.herokuapp.com/peminjaman/update',
-		   dataType: 'json',
-		   data: data,
-		}).done(function () {
-    		console.log('SUCCESS');
-		}).fail(function (msg) {
-    		console.log('FAIL');
-		})
-	  })
-	}
