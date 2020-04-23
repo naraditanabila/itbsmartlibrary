@@ -1,3 +1,20 @@
+const updateNumberOfBook = async() => {
+	const data = await JSON.stringify({
+		id_buku:document.getElementById("m2_id_buku").value,
+		jml_total:document.getElementById("m2_jml_total").value,
+	})
+	console.log(data);
+	const response = await fetch('https://api-itbsmartlibrary.herokuapp.com/buku/update',{
+		method:'PUT',
+		headers:{
+			'Content-Type':'application/json'
+		},
+		body: data
+	})
+	const json = await response.json();
+	console.log(json);
+}
+
 const addBuku = async() => {
 	const data = await JSON.stringify({
         id_buku:document.getElementById("m_id_buku").value,
