@@ -177,22 +177,12 @@
         }
       }
     },
-    "/buku/add/{id_buku}" : {
+    "/buku/update" : {
       "put" : {
         "tags" : [ "buku" ],
         "summary" : "updateNumberOfBook",
         "description" : "Mengupdate jumlah buku yang sudah tersedia di perpustakaan.",
-        "parameters" : [ {
-          "name" : "id_buku",
-          "in" : "path",
-          "description" : "id buku",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "number"
-          }
-        } ],
+        "parameters" : [],
         "requestBody" : {
           "content" : {
             "application/x-www-form-urlencoded" : {
@@ -510,6 +500,9 @@
         "required" : [ "jml_buku" ],
         "type" : "object",
         "properties" : {
+          "id_buku" : {
+            "type" : "number"
+          },
           "jml_buku" : {
             "type" : "number"
           }
